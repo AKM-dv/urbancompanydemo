@@ -59,16 +59,12 @@
       align-items: center;
       justify-content: space-between;
       padding: 16px 5vw;
-      position: fixed;
-      top: 40px;
-      left: 0;
-      right: 0;
-      z-index: 100;
       background: rgba(8, 8, 8, 0.9);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
       gap: 12px;
       flex-wrap: wrap;
+      width: 100%;
     }
 
     .nav-logo {
@@ -959,19 +955,105 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    @media(max-width: 700px) {
+      nav {
+        padding: 12px 4vw;
+        flex-wrap: nowrap;
+      }
+      .nav-logo .by-text {
+        display: none;
+      }
+      .nav-right {
+        gap: 8px;
+      }
+      .nav-pill {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+      }
+      .lang-btn {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+      }
+      #top-banner {
+        font-size: 0.75rem !important;
+        padding: 8px !important;
+      }
+    }
+
+    /* FAQ Section */
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    details.faq-item {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    details.faq-item:hover {
+      border-color: rgba(245, 200, 0, 0.3);
+    }
+    details.faq-item[open] summary {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--yellow);
+    }
+    summary.faq-question {
+      padding: 20px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: color 0.3s;
+    }
+    summary.faq-question::-webkit-details-marker {
+      display: none;
+    }
+    summary.faq-question::after {
+      content: '+';
+      font-size: 1.5rem;
+      color: var(--gray);
+      transition: transform 0.3s;
+    }
+    details.faq-item[open] summary.faq-question::after {
+      content: '−';
+      transform: rotate(180deg);
+      color: var(--yellow);
+    }
+    .faq-answer {
+      padding: 20px;
+      font-size: 0.95rem;
+      color: var(--gray);
+      line-height: 1.7;
+      animation: faqSlideDown 0.3s ease-out;
+    }
+    @keyframes faqSlideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 
 <body>
-  <div id="top-banner" style="background: var(--yellow); color: var(--black); text-align: center; padding: 10px; font-weight: bold; font-size: 0.85rem; position: fixed; top: 0; left: 0; right: 0; z-index: 200; font-family: 'Syne', sans-serif; display: flex; justify-content: center; align-items: center; gap: 8px; height: 40px;">
-    🔥 <span style="letter-spacing: 0.05em;">ONLY 3 ORDERS LEFT FOR THIS WEEK</span> — Offer ends in <span id="countdown-timer" style="background: var(--black); color: var(--yellow); padding: 3px 8px; border-radius: 4px; margin-left: 4px; font-variant-numeric: tabular-nums;">--h --m --s</span>
-  </div>
-
-  <nav>
-    <div class="nav-logo">
-      <span style="font-size: 1.2rem;">🚀</span> Service<span class="accent">Mate</span>&nbsp;<span style="opacity:0.3;font-weight:400;font-size:0.82rem;">by
-        Neighshop Global</span>
+  <header style="position: sticky; top: 0; z-index: 200; display: flex; flex-direction: column;">
+    <div id="top-banner" style="background: var(--yellow); color: var(--black); text-align: center; padding: 10px; font-weight: bold; font-size: 0.85rem; font-family: 'Syne', sans-serif; display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap;">
+      🔥 <span style="letter-spacing: 0.05em;">ONLY 3 ORDERS LEFT FOR THIS WEEK</span> — Offer ends in <span id="countdown-timer" style="background: var(--black); color: var(--yellow); padding: 3px 8px; border-radius: 4px; margin-left: 4px; font-variant-numeric: tabular-nums;">--h --m --s</span>
     </div>
+
+    <nav>
+      <div class="nav-logo">
+        <span style="font-size: 1.2rem;">🚀</span> Service<span class="accent">Mate</span>&nbsp;<span class="by-text" style="opacity:0.3;font-weight:400;font-size:0.82rem;">by
+          Neighshop Global</span>
+      </div>
     <div class="nav-right">
       <div class="lang-switcher">
         <button class="lang-btn" id="langBtn" onclick="toggleLang()">
@@ -993,8 +1075,9 @@
       <a href="tel:+918307802643" class="nav-pill">📞 <span data-t="nav_cta">Talk to Us</span></a>
     </div>
   </nav>
+  </header>
 
-  <div class="ticker-wrap" style="margin-top:109px;">
+  <div class="ticker-wrap" style="margin-top:0;">
     <div class="ticker">🚀 Urban Company-like platform in just 1 week &nbsp;•&nbsp; ✅ 350+ Projects Delivered
       &nbsp;•&nbsp; 🌍 5+ Countries Served &nbsp;•&nbsp; ⭐ 7+ Years of Experience &nbsp;•&nbsp; 💳 Payment Gateway
       Included &nbsp;•&nbsp; 📱 Android + iOS + Web &nbsp;•&nbsp; 🚀 Urban Company-like platform in just 1 week
@@ -1083,7 +1166,7 @@
         </div>
       </a>
       <a href="https://withpronto.com" target="_blank" class="built-card">
-        <div class="built-card-img"><img src=".//assets//pronto.png" alt="Pronto"></div>
+        <div class="built-card-img"><img src="./assets/pronto.png" alt="Pronto"></div>
         <div class="built-card-content">
           <div class="built-card-domain">withpronto.com</div>
           <p data-t="bc3">On-demand service marketplace with real-time booking.</p>
@@ -1256,6 +1339,40 @@
         <h4 data-t="t5h">NDA &amp; Contract</h4>
         <p data-t="t5p">Your idea is protected. A formal agreement signed before we begin.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" style="background:#080808; padding: 60px 5vw;">
+    <div class="reveal">
+      <div class="section-tag">Got Questions?</div>
+      <h2 class="section-title">Frequently Asked <em>Questions</em></h2>
+    </div>
+    <div class="faq-container reveal" style="margin-top:40px;">
+      <details class="faq-item">
+        <summary class="faq-question">How much time does it take to deliver?</summary>
+        <div class="faq-answer">We deliver the complete platform, including the web, admin panel, and mobile apps, within <strong>7 days</strong>.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-question">Can we request design changes?</summary>
+        <div class="faq-answer">Yes! We can accommodate minimal design changes to ensure the platform perfectly aligns with your brand identity and preferences.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-question">Do we get the rights to the source code?</summary>
+        <div class="faq-answer">Absolutely. You will receive a license that grants you full rights to own, use, and modify the source code for your business.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-question">What is the technology stack used?</summary>
+        <div class="faq-answer">The platform is built using a robust modern stack: <strong>React JS and Flutter</strong> for the frontend, <strong>Python Flask</strong> for the backend, <strong>MySQL</strong> for the database, and <strong>Cloudflare</strong> for enhanced security and performance.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-question">What are the payment terms?</summary>
+        <div class="faq-answer">We require an initial advance of just <strong>₹5,000</strong> to start the project. The remaining balance is only due upon completion, right before the final handover of your ready platform.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-question">Do you also provide custom app development?</summary>
+        <div class="faq-answer">Yes, we provide end-to-end custom app development services tailored to your unique requirements. Feel free to connect with us to discuss your ideas!</div>
+      </details>
     </div>
   </section>
 
