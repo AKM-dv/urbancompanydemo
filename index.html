@@ -1,470 +1,1345 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Service Mate — Your Own Urban Company</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --black: #080808;
-    --yellow: #F5C800;
-    --white: #FAFAFA;
-    --gray: #9a9a9a;
-    --blue: #1A4FBF;
-    --card-bg: #111111;
-    --border: rgba(245,200,0,0.15);
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
-  h1,h2,h3,h4 { font-family: 'Syne', sans-serif; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Mate — Your Own Urban Company</title>
+  <meta name="description" content="Launch your own Urban Company-like full-stack on-demand service platform in 1 week.">
+  <meta property="og:title" content="Service Mate — Your Own Urban Company">
+  <meta property="og:description" content="Launch your own Urban Company-like full-stack on-demand service platform in 1 week.">
+  <meta property="og:image" content="./assets/og.png">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --black: #080808;
+      --yellow: #F5C800;
+      --white: #FAFAFA;
+      --gray: #9a9a9a;
+      --blue: #1A4FBF;
+      --card-bg: #111111;
+      --border: rgba(245, 200, 0, 0.15);
+    }
 
-  /* NAV */
-  nav {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 5vw; position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(8,8,8,0.9); backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--border); gap: 12px; flex-wrap: wrap;
-  }
-  .nav-logo { display: flex; align-items: center; gap: 10px; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.05rem; letter-spacing: -0.02em; white-space: nowrap; }
-  .nav-logo .accent { color: var(--yellow); }
-  .nav-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  /* Language Switcher */
-  .lang-switcher { position: relative; }
-  .lang-btn {
-    display: flex; align-items: center; gap: 6px;
-    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
-    color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.82rem;
-    padding: 7px 14px; border-radius: 100px; cursor: pointer;
-    transition: border-color 0.2s, background 0.2s; white-space: nowrap;
-  }
-  .lang-btn:hover { border-color: var(--yellow); background: rgba(245,200,0,0.07); }
-  .lang-btn .chevron { font-size: 0.6rem; opacity: 0.5; transition: transform 0.2s; }
-  .lang-btn.open .chevron { transform: rotate(180deg); }
-  .lang-dropdown {
-    position: absolute; top: calc(100% + 8px); right: 0;
-    background: #1c1c1c; border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 14px; padding: 6px; min-width: 168px;
-    opacity: 0; visibility: hidden; transform: translateY(-6px);
-    transition: opacity 0.2s, transform 0.2s, visibility 0.2s; z-index: 200;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-  }
-  .lang-dropdown.open { opacity: 1; visibility: visible; transform: translateY(0); }
-  .lang-option { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; font-size: 0.88rem; transition: background 0.15s; }
-  .lang-option:hover { background: rgba(245,200,0,0.1); }
-  .lang-option.active { background: rgba(245,200,0,0.15); color: var(--yellow); }
-  .lang-option .flag { font-size: 1.1rem; }
-  .lang-option .lang-native { font-size: 0.72rem; opacity: 0.5; margin-left: auto; }
+    html {
+      scroll-behavior: smooth;
+    }
 
-  .nav-pill { background: var(--yellow); color: var(--black); font-family: 'Syne', sans-serif; font-weight: 700; padding: 9px 20px; border-radius: 100px; text-decoration: none; font-size: 0.85rem; transition: transform 0.2s; white-space: nowrap; }
-  .nav-pill:hover { transform: scale(1.04); }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-  /* TICKER */
-  .ticker-wrap { background: var(--yellow); overflow: hidden; padding: 9px 0; white-space: nowrap; }
-  .ticker { display: inline-block; animation: ticker 28s linear infinite; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.82rem; color: var(--black); letter-spacing: 0.04em; }
-  @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Syne', sans-serif;
+    }
 
-  /* HERO */
-  .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 130px 6vw 80px; position: relative; overflow: hidden; }
-  .hero-glow { position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 900px; height: 900px; background: radial-gradient(circle, rgba(245,200,0,0.07) 0%, transparent 65%); pointer-events: none; }
-  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(245,200,0,0.1); border: 1px solid rgba(245,200,0,0.3); padding: 6px 16px; border-radius: 100px; font-size: 0.78rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--yellow); margin-bottom: 28px; animation: fadeUp 0.6s ease both; }
-  .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--yellow); animation: pulse 1.6s infinite; }
-  .hero h1 { font-size: clamp(2.8rem, 7.5vw, 6.5rem); font-weight: 800; line-height: 1.02; letter-spacing: -0.04em; animation: fadeUp 0.7s 0.1s ease both; }
-  .hero h1 em { font-style: normal; color: var(--yellow); }
-  .hero-sub { font-size: clamp(0.95rem, 1.8vw, 1.2rem); color: var(--gray); max-width: 540px; margin: 22px auto 0; font-weight: 300; animation: fadeUp 0.7s 0.2s ease both; }
-  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 40px; animation: fadeUp 0.7s 0.3s ease both; }
-  .btn-primary { background: var(--yellow); color: var(--black); font-family: 'Syne', sans-serif; font-weight: 700; padding: 13px 30px; border-radius: 100px; text-decoration: none; font-size: 0.95rem; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 0 28px rgba(245,200,0,0.28); }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 48px rgba(245,200,0,0.48); }
-  .btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--white); font-family: 'Syne', sans-serif; font-weight: 600; padding: 13px 30px; border-radius: 100px; text-decoration: none; font-size: 0.95rem; transition: border-color 0.2s, background 0.2s; }
-  .btn-ghost:hover { border-color: var(--yellow); background: rgba(245,200,0,0.05); }
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 5vw;
+      position: fixed;
+      top: 40px;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(8, 8, 8, 0.9);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      gap: 12px;
+      flex-wrap: wrap;
+    }
 
-  /* HERO IMAGE STRIP */
-  .hero-images { display: flex; gap: 14px; margin-top: 56px; max-width: 900px; width: 100%; animation: fadeUp 0.7s 0.4s ease both; overflow: hidden; }
-  .hero-img-card { flex: 1; min-width: 160px; height: 190px; border-radius: 16px; overflow: hidden; position: relative; border: 1px solid rgba(255,255,255,0.08); }
-  .hero-img-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
-  .hero-img-card:hover img { transform: scale(1.06); }
-  .hero-img-card .overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,8,8,0.75) 0%, transparent 55%); }
-  .hero-img-card .label { position: absolute; bottom: 10px; left: 12px; font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--yellow); }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
 
-  .hero-stats { display: flex; gap: 44px; flex-wrap: wrap; justify-content: center; margin-top: 52px; animation: fadeUp 0.7s 0.5s ease both; }
-  .stat-num { font-family: 'Syne', sans-serif; font-size: 2.4rem; font-weight: 800; color: var(--yellow); line-height: 1; }
-  .stat-label { font-size: 0.78rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+    .nav-logo .accent {
+      color: var(--yellow);
+    }
 
-  /* SECTIONS */
-  section { padding: 90px 6vw; }
-  .section-tag { display: inline-block; background: rgba(245,200,0,0.1); border: 1px solid rgba(245,200,0,0.25); color: var(--yellow); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 14px; border-radius: 100px; margin-bottom: 14px; }
-  .section-title { font-size: clamp(1.9rem, 3.8vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }
-  .section-title em { font-style: normal; color: var(--yellow); }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
 
-  /* FEATURE IMAGE ROW */
-  .feature-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 48px; }
-  @media(max-width:700px){ .feature-row{grid-template-columns:1fr;} }
-  .feature-img-block { border-radius: 22px; overflow: hidden; position: relative; min-height: 280px; background: #111; border: 1px solid rgba(255,255,255,0.07); }
-  .feature-img-block img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s; }
-  .feature-img-block:hover img { transform: scale(1.04); }
-  .feature-img-block .img-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(8,8,8,0.6), rgba(26,79,191,0.2)); }
-  .feature-img-block .img-text { position: absolute; bottom: 24px; left: 24px; right: 24px; }
-  .feature-img-block .img-text h4 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 4px; }
-  .feature-img-block .img-text p { font-size: 0.82rem; color: rgba(255,255,255,0.7); }
+    /* Language Switcher */
+    .lang-switcher {
+      position: relative;
+    }
 
-  /* BUILT GRID */
-  .built-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap: 14px; margin-top: 36px; }
-  .built-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.07); border-radius: 18px; padding: 26px; text-decoration: none; color: var(--white); transition: border-color 0.2s,transform 0.2s,box-shadow 0.2s; display: flex; flex-direction: column; gap: 10px; }
-  .built-card:hover { border-color: rgba(245,200,0,0.4); transform: translateY(-4px); box-shadow: 0 18px 36px rgba(0,0,0,0.4); }
-  .built-card-domain { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.98rem; color: var(--yellow); }
-  .built-card p { font-size: 0.83rem; color: var(--gray); }
-  .built-card-arrow { margin-top: auto; font-size: 1.1rem; color: var(--yellow); }
+    .lang-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      padding: 7px 14px;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
 
-  /* SOLUTIONS */
-  .solutions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 48px; }
-  @media(max-width:700px){ .solutions-grid{grid-template-columns:1fr;} }
-  .sol-card { border-radius: 22px; padding: 36px 32px; }
-  .sol-card.light { background: #fff; color: #111; }
-  .sol-card.dark { background: #0d1b3e; color: var(--white); }
-  .sol-name { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; margin-bottom: 4px; }
-  .sol-subtitle { font-size: 0.78rem; opacity: 0.5; margin-bottom: 24px; text-transform: uppercase; letter-spacing: 0.08em; }
-  .sol-features { list-style: none; display: flex; flex-direction: column; gap: 9px; }
-  .sol-features li { display: flex; align-items: flex-start; gap: 9px; font-size: 0.92rem; }
-  .sol-features li::before { content: '●'; font-size: 0.45rem; color: var(--blue); margin-top: 6px; flex-shrink: 0; }
-  .sol-card.dark .sol-features li::before { color: var(--yellow); }
-  .sol-price { margin-top: 28px; font-family: 'Syne', sans-serif; font-size: 1.9rem; font-weight: 800; }
-  .sol-card.light .sol-price { color: var(--blue); }
-  .sol-card.dark .sol-price { color: var(--yellow); }
-  .sol-price-note { font-size: 0.78rem; opacity: 0.45; font-weight: 400; }
-  .sol-delivery { display: inline-block; margin-top: 10px; font-size: 0.76rem; padding: 4px 12px; border-radius: 100px; font-weight: 600; }
-  .sol-card.light .sol-delivery { background: rgba(26,79,191,0.1); color: var(--blue); }
-  .sol-card.dark .sol-delivery { background: rgba(245,200,0,0.15); color: var(--yellow); }
+    .lang-btn:hover {
+      border-color: var(--yellow);
+      background: rgba(245, 200, 0, 0.07);
+    }
 
-  /* DEMO */
-  .demo-section { background: #060606; }
-  .demo-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(270px,1fr)); gap: 18px; margin-top: 48px; }
-  .demo-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.07); border-radius: 20px; overflow: hidden; transition: border-color 0.2s,transform 0.2s; }
-  .demo-card:hover { border-color: rgba(245,200,0,0.35); transform: translateY(-4px); }
-  .demo-card-img { width: 100%; height: 176px; overflow: hidden; position: relative; }
-  .demo-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
-  .demo-card:hover .demo-card-img img { transform: scale(1.05); }
-  .demo-card-img .di-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(17,17,17,0.6), transparent); }
-  .demo-card-body { padding: 22px; }
-  .demo-card-label { font-size: 0.68rem; color: var(--yellow); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; }
-  .demo-card-title { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
-  .demo-card-desc { font-size: 0.83rem; color: var(--gray); margin-bottom: 18px; }
-  .demo-link { display: inline-flex; align-items: center; gap: 6px; background: var(--yellow); color: var(--black); font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.83rem; padding: 8px 18px; border-radius: 100px; text-decoration: none; transition: background 0.2s; }
-  .demo-link:hover { background: #ffd700; }
-  .demo-creds { background: rgba(255,255,255,0.04); border-radius: 8px; padding: 9px 12px; margin-top: 10px; font-size: 0.76rem; color: var(--gray); }
-  .demo-creds strong { color: var(--white); }
+    .lang-btn .chevron {
+      font-size: 0.6rem;
+      opacity: 0.5;
+      transition: transform 0.2s;
+    }
 
-  /* HOW */
-  .how-inner { max-width: 840px; margin: 0 auto; }
-  .steps { display: flex; flex-direction: column; margin-top: 48px; }
-  .step { display: flex; gap: 24px; align-items: flex-start; padding: 28px 0; position: relative; }
-  .step:not(:last-child)::after { content:''; position:absolute; left:21px; top:66px; width:2px; bottom:0; background:linear-gradient(to bottom,rgba(245,200,0,0.3),transparent); }
-  .step-num { width:42px; height:42px; border-radius:50%; background:rgba(245,200,0,0.1); border:1px solid rgba(245,200,0,0.35); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-weight:800; font-size:0.85rem; color:var(--yellow); flex-shrink:0; }
-  .step-content h4 { font-size:1rem; font-weight:700; margin-bottom:3px; }
-  .step-content p { font-size:0.88rem; color:var(--gray); }
+    .lang-btn.open .chevron {
+      transform: rotate(180deg);
+    }
 
-  /* TERMS */
-  .terms-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; margin-top:48px; }
-  .term-card { background:var(--card-bg); border:1px solid rgba(255,255,255,0.07); border-radius:16px; padding:22px; }
-  .term-icon { font-size:1.5rem; margin-bottom:10px; }
-  .term-card h4 { font-family:'Syne',sans-serif; font-size:0.92rem; font-weight:700; margin-bottom:5px; }
-  .term-card p { font-size:0.8rem; color:var(--gray); }
+    .lang-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: #1c1c1c;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 6px;
+      min-width: 168px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px);
+      transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+      z-index: 200;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
 
-  /* CTA */
-  .cta-section { text-align:center; padding:110px 6vw; position:relative; overflow:hidden; }
-  .cta-section::before { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:600px; height:600px; background:radial-gradient(circle,rgba(245,200,0,0.07),transparent 70%); pointer-events:none; }
-  .cta-section h2 { font-size:clamp(2.3rem,5vw,4rem); font-weight:800; letter-spacing:-0.04em; }
-  .cta-section p { color:var(--gray); margin:18px auto 40px; max-width:480px; font-size:1rem; }
+    .lang-dropdown.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
 
-  /* FOOTER */
-  footer { border-top:1px solid rgba(255,255,255,0.07); padding:36px 6vw; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; }
-  .footer-brand { font-family:'Syne',sans-serif; font-weight:800; font-size:0.92rem; }
-  .footer-brand .accent { color:var(--yellow); }
-  .footer-links { display:flex; gap:22px; flex-wrap:wrap; }
-  .footer-links a { color:var(--gray); text-decoration:none; font-size:0.82rem; transition:color 0.2s; }
-  .footer-links a:hover { color:var(--white); }
+    .lang-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      transition: background 0.15s;
+    }
 
-  /* ANIMATIONS */
-  @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-  .reveal { opacity:0; transform:translateY(28px); transition:opacity 0.6s ease,transform 0.6s ease; }
-  .reveal.visible { opacity:1; transform:translateY(0); }
-</style>
+    .lang-option:hover {
+      background: rgba(245, 200, 0, 0.1);
+    }
+
+    .lang-option.active {
+      background: rgba(245, 200, 0, 0.15);
+      color: var(--yellow);
+    }
+
+    .lang-option .flag {
+      font-size: 1.1rem;
+    }
+
+    .lang-option .lang-native {
+      font-size: 0.72rem;
+      opacity: 0.5;
+      margin-left: auto;
+    }
+
+    .nav-pill {
+      background: var(--yellow);
+      color: var(--black);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      padding: 9px 20px;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: transform 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-pill:hover {
+      transform: scale(1.04);
+    }
+
+    /* TICKER */
+    .ticker-wrap {
+      background: var(--yellow);
+      overflow: hidden;
+      padding: 9px 0;
+      white-space: nowrap;
+    }
+
+    .ticker {
+      display: inline-block;
+      animation: ticker 28s linear infinite;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: var(--black);
+      letter-spacing: 0.04em;
+    }
+
+    @keyframes ticker {
+      from {
+        transform: translateX(0)
+      }
+
+      to {
+        transform: translateX(-50%)
+      }
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 130px 6vw 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 900px;
+      background: radial-gradient(circle, rgba(245, 200, 0, 0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245, 200, 0, 0.1);
+      border: 1px solid rgba(245, 200, 0, 0.3);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 0.78rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 28px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--yellow);
+      animation: pulse 1.6s infinite;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 7.5vw, 6.5rem);
+      font-weight: 800;
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--yellow);
+    }
+
+    .hero-sub {
+      font-size: clamp(0.95rem, 1.8vw, 1.2rem);
+      color: var(--gray);
+      max-width: 540px;
+      margin: 22px auto 0;
+      font-weight: 300;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 40px;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .btn-primary {
+      background: var(--yellow);
+      color: var(--black);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      padding: 13px 30px;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 28px rgba(245, 200, 0, 0.28);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 48px rgba(245, 200, 0, 0.48);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--white);
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      padding: 13px 30px;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--yellow);
+      background: rgba(245, 200, 0, 0.05);
+    }
+
+    /* HERO IMAGE STRIP */
+    .hero-images {
+      display: flex;
+      gap: 14px;
+      margin-top: 56px;
+      max-width: 900px;
+      width: 100%;
+      animation: fadeUp 0.7s 0.4s ease both;
+      overflow: hidden;
+    }
+
+    .hero-img-card {
+      flex: 1;
+      min-width: 160px;
+      height: 190px;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-img-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s;
+    }
+
+    .hero-img-card:hover img {
+      transform: scale(1.06);
+    }
+
+    .hero-img-card .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8, 8, 8, 0.75) 0%, transparent 55%);
+    }
+
+    .hero-img-card .label {
+      position: absolute;
+      bottom: 10px;
+      left: 12px;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--yellow);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 44px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 52px;
+      animation: fadeUp 0.7s 0.5s ease both;
+    }
+
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--yellow);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 4px;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 90px 6vw;
+    }
+
+    .section-tag {
+      display: inline-block;
+      background: rgba(245, 200, 0, 0.1);
+      border: 1px solid rgba(245, 200, 0, 0.25);
+      color: var(--yellow);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 100px;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: clamp(1.9rem, 3.8vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .section-title em {
+      font-style: normal;
+      color: var(--yellow);
+    }
+
+    /* FEATURE IMAGE ROW */
+    .feature-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 48px;
+    }
+
+    @media(max-width:700px) {
+      .feature-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .feature-img-block {
+      border-radius: 22px;
+      overflow: hidden;
+      position: relative;
+      min-height: 280px;
+      background: #111;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .feature-img-block img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s;
+    }
+
+    .feature-img-block:hover img {
+      transform: scale(1.04);
+    }
+
+    .feature-img-block .img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(8, 8, 8, 0.6), rgba(26, 79, 191, 0.2));
+    }
+
+    .feature-img-block .img-text {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      right: 24px;
+    }
+
+    .feature-img-block .img-text h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .feature-img-block .img-text p {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* BUILT GRID */
+    .built-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 36px;
+    }
+
+    .built-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 18px;
+      padding: 26px;
+      text-decoration: none;
+      color: var(--white);
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .built-card:hover {
+      border-color: rgba(245, 200, 0, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.4);
+    }
+    .built-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap: 14px; margin-top: 36px; }
+    .built-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.07); border-radius: 18px; overflow: hidden; text-decoration: none; color: var(--white); transition: border-color 0.2s,transform 0.2s,box-shadow 0.2s; display: flex; flex-direction: column; }
+    .built-card:hover { border-color: rgba(245,200,0,0.4); transform: translateY(-4px); box-shadow: 0 18px 36px rgba(0,0,0,0.4); }
+    .built-card-img { width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #111; }
+    .built-card-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 0.4s; }
+    .built-card:hover .built-card-img img { transform: scale(1.05); }
+    .built-card-content { padding: 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    .built-card-domain { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.98rem; color: var(--yellow); }
+    .built-card p { font-size: 0.83rem; color: var(--gray); }
+    .built-card-arrow { margin-top: auto; font-size: 1.1rem; color: var(--yellow); }
+
+    /* SOLUTIONS */
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      max-width: 500px;
+      margin: 48px auto 0;
+      gap: 18px;
+    }
+
+    @media(max-width:700px) {
+      .solutions-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .sol-card {
+      border-radius: 22px;
+      padding: 36px 32px;
+    }
+
+    .sol-card.light {
+      background: #fff;
+      color: #111;
+    }
+
+    .sol-card.dark {
+      background: #0d1b3e;
+      color: var(--white);
+    }
+
+    .sol-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .sol-subtitle {
+      font-size: 0.78rem;
+      opacity: 0.5;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .sol-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .sol-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      font-size: 0.92rem;
+    }
+
+    .sol-features li::before {
+      content: '●';
+      font-size: 0.45rem;
+      color: var(--blue);
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .sol-card.dark .sol-features li::before {
+      color: var(--yellow);
+    }
+
+    .sol-price {
+      margin-top: 28px;
+      font-family: 'Syne', sans-serif;
+      font-size: 1.9rem;
+      font-weight: 800;
+    }
+
+    .sol-card.light .sol-price {
+      color: var(--blue);
+    }
+
+    .sol-card.dark .sol-price {
+      color: var(--yellow);
+    }
+
+    .sol-price-note {
+      font-size: 0.78rem;
+      opacity: 0.45;
+      font-weight: 400;
+    }
+
+    .sol-delivery {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 0.76rem;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-weight: 600;
+    }
+
+    .sol-card.light .sol-delivery {
+      background: rgba(26, 79, 191, 0.1);
+      color: var(--blue);
+    }
+
+    .sol-card.dark .sol-delivery {
+      background: rgba(245, 200, 0, 0.15);
+      color: var(--yellow);
+    }
+
+    /* DEMO */
+    .demo-section {
+      background: #060606;
+    }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 18px;
+      margin-top: 48px;
+    }
+
+    .demo-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .demo-card:hover {
+      border-color: rgba(245, 200, 0, 0.35);
+      transform: translateY(-4px);
+    }
+
+    .demo-card-img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .demo-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      transition: transform 0.4s;
+    }
+
+    .demo-card:hover .demo-card-img img {
+      transform: scale(1.05);
+    }
+
+    .demo-card-img .di-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(17, 17, 17, 0.6), transparent);
+    }
+
+    .demo-card-body {
+      padding: 22px;
+    }
+
+    .demo-card-label {
+      font-size: 0.68rem;
+      color: var(--yellow);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 5px;
+    }
+
+    .demo-card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .demo-card-desc {
+      font-size: 0.83rem;
+      color: var(--gray);
+      margin-bottom: 18px;
+    }
+
+    .demo-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--yellow);
+      color: var(--black);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.83rem;
+      padding: 8px 18px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .demo-link:hover {
+      background: #ffd700;
+    }
+
+    .demo-creds {
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 8px;
+      padding: 9px 12px;
+      margin-top: 10px;
+      font-size: 0.76rem;
+      color: var(--gray);
+    }
+
+    .demo-creds strong {
+      color: var(--white);
+    }
+
+    /* HOW */
+    .how-inner {
+      max-width: 840px;
+      margin: 0 auto;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      margin-top: 48px;
+    }
+
+    .step {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      padding: 28px 0;
+      position: relative;
+    }
+
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 21px;
+      top: 66px;
+      width: 2px;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(245, 200, 0, 0.3), transparent);
+    }
+
+    .step-num {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(245, 200, 0, 0.1);
+      border: 1px solid rgba(245, 200, 0, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: var(--yellow);
+      flex-shrink: 0;
+    }
+
+    .step-content h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .step-content p {
+      font-size: 0.88rem;
+      color: var(--gray);
+    }
+
+    /* TERMS */
+    .terms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+      margin-top: 48px;
+    }
+
+    .term-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 16px;
+      padding: 22px;
+    }
+
+    .term-icon {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .term-card h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .term-card p {
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      padding: 110px 6vw;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(245, 200, 0, 0.07), transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(2.3rem, 5vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .cta-section p {
+      color: var(--gray);
+      margin: 18px auto 40px;
+      max-width: 480px;
+      font-size: 1rem;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 36px 6vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .footer-brand {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 0.92rem;
+    }
+
+    .footer-brand .accent {
+      color: var(--yellow);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.82rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--white);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(22px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: 0.3
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
+
 <body>
-
-<nav>
-  <div class="nav-logo">
-    <svg width="26" height="26" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="14" fill="#F5C800" opacity="0.15"/><path d="M8 14a6 6 0 1 1 12 0 6 6 0 0 1-12 0Z" stroke="#F5C800" stroke-width="1.5"/><path d="M14 11v3l2 2" stroke="#F5C800" stroke-width="1.5" stroke-linecap="round"/></svg>
-    Service<span class="accent">Mate</span>&nbsp;<span style="opacity:0.3;font-weight:400;font-size:0.82rem;">by Neighshop Global</span>
+  <div id="top-banner" style="background: var(--yellow); color: var(--black); text-align: center; padding: 10px; font-weight: bold; font-size: 0.85rem; position: fixed; top: 0; left: 0; right: 0; z-index: 200; font-family: 'Syne', sans-serif; display: flex; justify-content: center; align-items: center; gap: 8px; height: 40px;">
+    🔥 <span style="letter-spacing: 0.05em;">ONLY 3 ORDERS LEFT FOR THIS WEEK</span> — Offer ends in <span id="countdown-timer" style="background: var(--black); color: var(--yellow); padding: 3px 8px; border-radius: 4px; margin-left: 4px; font-variant-numeric: tabular-nums;">--h --m --s</span>
   </div>
-  <div class="nav-right">
-    <div class="lang-switcher">
-      <button class="lang-btn" id="langBtn" onclick="toggleLang()">
-        🌐 <span id="langLabel">English</span> <span class="chevron">▼</span>
-      </button>
-      <div class="lang-dropdown" id="langDropdown">
-        <div class="lang-option active" onclick="setLang('en')"><span class="flag">🇬🇧</span> English <span class="lang-native">EN</span></div>
-        <div class="lang-option" onclick="setLang('hi')"><span class="flag">🇮🇳</span> Hindi <span class="lang-native">हिन्दी</span></div>
-        <div class="lang-option" onclick="setLang('ta')"><span class="flag">🇮🇳</span> Tamil <span class="lang-native">தமிழ்</span></div>
-        <div class="lang-option" onclick="setLang('kn')"><span class="flag">🇮🇳</span> Kannada <span class="lang-native">ಕನ್ನಡ</span></div>
-        <div class="lang-option" onclick="setLang('ur')"><span class="flag">🇵🇰</span> Urdu <span class="lang-native">اردو</span></div>
+
+  <nav>
+    <div class="nav-logo">
+      <span style="font-size: 1.2rem;">🚀</span> Service<span class="accent">Mate</span>&nbsp;<span style="opacity:0.3;font-weight:400;font-size:0.82rem;">by
+        Neighshop Global</span>
+    </div>
+    <div class="nav-right">
+      <div class="lang-switcher">
+        <button class="lang-btn" id="langBtn" onclick="toggleLang()">
+          🌐 <span id="langLabel">English</span> <span class="chevron">▼</span>
+        </button>
+        <div class="lang-dropdown" id="langDropdown">
+          <div class="lang-option active" onclick="setLang('en')"><span class="flag">🇬🇧</span> English <span
+              class="lang-native">EN</span></div>
+          <div class="lang-option" onclick="setLang('hi')"><span class="flag">🇮🇳</span> Hindi <span
+              class="lang-native">हिन्दी</span></div>
+          <div class="lang-option" onclick="setLang('ta')"><span class="flag">🇮🇳</span> Tamil <span
+              class="lang-native">தமிழ்</span></div>
+          <div class="lang-option" onclick="setLang('kn')"><span class="flag">🇮🇳</span> Kannada <span
+              class="lang-native">ಕನ್ನಡ</span></div>
+          <div class="lang-option" onclick="setLang('ur')"><span class="flag">🇵🇰</span> Urdu <span
+              class="lang-native">اردو</span></div>
+        </div>
+      </div>
+      <a href="tel:+918307802643" class="nav-pill">📞 <span data-t="nav_cta">Talk to Us</span></a>
+    </div>
+  </nav>
+
+  <div class="ticker-wrap" style="margin-top:109px;">
+    <div class="ticker">🚀 Urban Company-like platform in just 1 week &nbsp;•&nbsp; ✅ 350+ Projects Delivered
+      &nbsp;•&nbsp; 🌍 5+ Countries Served &nbsp;•&nbsp; ⭐ 7+ Years of Experience &nbsp;•&nbsp; 💳 Payment Gateway
+      Included &nbsp;•&nbsp; 📱 Android + iOS + Web &nbsp;•&nbsp; 🚀 Urban Company-like platform in just 1 week
+      &nbsp;•&nbsp; ✅ 350+ Projects Delivered &nbsp;•&nbsp; 🌍 5+ Countries Served &nbsp;•&nbsp; ⭐ 7+ Years of
+      Experience &nbsp;•&nbsp; 💳 Payment Gateway Included &nbsp;•&nbsp; 📱 Android + iOS + Web &nbsp;•&nbsp;</div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-badge">
+      <div class="live-dot"></div><span data-t="badge">Built for Service Businesses</span>
+    </div>
+    <h1 data-t="hero_h1">Launch Your Own<br><em>Urban Company</em><br>in 1 Week.</h1>
+    <p class="hero-sub" data-t="hero_sub">Get a full-stack on-demand service platform — app, website, admin panel —
+      ready to launch under your brand. No tech headaches.</p>
+    <div class="hero-ctas">
+      <a href="#demo" class="btn-primary">🎬 <span data-t="cta_demo">See Live Demo</span></a>
+      <a href="#solutions" class="btn-ghost"><span data-t="cta_price">View Pricing</span> →</a>
+    </div>
+    <div class="hero-images">
+      <div class="hero-img-card">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="Home cleaning">
+        <div class="overlay"></div>
+        <div class="label" data-t="img1">Home Cleaning</div>
+      </div>
+      <div class="hero-img-card">
+        <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&q=80" alt="Electrician">
+        <div class="overlay"></div>
+        <div class="label" data-t="img2">Electrician</div>
+      </div>
+      <div class="hero-img-card">
+        <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=400&q=80" alt="Plumbing">
+        <div class="overlay"></div>
+        <div class="label" data-t="img3">Plumbing</div>
+      </div>
+      <div class="hero-img-card">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80" alt="Beauty">
+        <div class="overlay"></div>
+        <div class="label" data-t="img4">Beauty & Wellness</div>
       </div>
     </div>
-    <a href="tel:+918307802643" class="nav-pill">📞 <span data-t="nav_cta">Talk to Us</span></a>
-  </div>
-</nav>
-
-<div class="ticker-wrap" style="margin-top:69px;">
-  <div class="ticker">🚀 Urban Company-like platform in just 1 week &nbsp;•&nbsp; ✅ 350+ Projects Delivered &nbsp;•&nbsp; 🌍 5+ Countries Served &nbsp;•&nbsp; ⭐ 7+ Years of Experience &nbsp;•&nbsp; 💳 Payment Gateway Included &nbsp;•&nbsp; 📱 Android + iOS + Web &nbsp;•&nbsp; 🚀 Urban Company-like platform in just 1 week &nbsp;•&nbsp; ✅ 350+ Projects Delivered &nbsp;•&nbsp; 🌍 5+ Countries Served &nbsp;•&nbsp; ⭐ 7+ Years of Experience &nbsp;•&nbsp; 💳 Payment Gateway Included &nbsp;•&nbsp; 📱 Android + iOS + Web &nbsp;•&nbsp;</div>
-</div>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-badge"><div class="live-dot"></div><span data-t="badge">Built for Service Businesses</span></div>
-  <h1 data-t="hero_h1">Launch Your Own<br><em>Urban Company</em><br>in 1 Week.</h1>
-  <p class="hero-sub" data-t="hero_sub">Get a full-stack on-demand service platform — app, website, admin panel — ready to launch under your brand. No tech headaches.</p>
-  <div class="hero-ctas">
-    <a href="#demo" class="btn-primary">🎬 <span data-t="cta_demo">See Live Demo</span></a>
-    <a href="#solutions" class="btn-ghost"><span data-t="cta_price">View Pricing</span> →</a>
-  </div>
-  <div class="hero-images">
-    <div class="hero-img-card">
-      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="Home cleaning">
-      <div class="overlay"></div><div class="label" data-t="img1">Home Cleaning</div>
-    </div>
-    <div class="hero-img-card">
-      <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&q=80" alt="Electrician">
-      <div class="overlay"></div><div class="label" data-t="img2">Electrician</div>
-    </div>
-    <div class="hero-img-card">
-      <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=400&q=80" alt="Plumbing">
-      <div class="overlay"></div><div class="label" data-t="img3">Plumbing</div>
-    </div>
-    <div class="hero-img-card">
-      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80" alt="Beauty">
-      <div class="overlay"></div><div class="label" data-t="img4">Beauty & Wellness</div>
-    </div>
-  </div>
-  <div class="hero-stats">
-    <div class="stat-item"><div class="stat-num">350+</div><div class="stat-label" data-t="stat1">Projects Delivered</div></div>
-    <div class="stat-item"><div class="stat-num">5+</div><div class="stat-label" data-t="stat2">Countries Served</div></div>
-    <div class="stat-item"><div class="stat-num">7+</div><div class="stat-label" data-t="stat3">Years Experience</div></div>
-    <div class="stat-item"><div class="stat-num">1 Wk</div><div class="stat-label" data-t="stat4">Delivery Time</div></div>
-  </div>
-</section>
-
-<!-- BUILT -->
-<section>
-  <div class="reveal">
-    <div class="section-tag" data-t="tag_built">Real Products We Built</div>
-    <h2 class="section-title" data-t="built_title">Platforms <em>Live</em> in the Wild</h2>
-    <p style="color:var(--gray);margin-top:10px;max-width:500px;" data-t="built_sub">Actual platforms deployed for clients — not mockups, not promises.</p>
-  </div>
-  <div class="feature-row reveal">
-    <div class="feature-img-block">
-      <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80" alt="Service at home">
-      <div class="img-overlay"></div>
-      <div class="img-text"><h4 data-t="fi1_h">On-Demand. At Home.</h4><p data-t="fi1_p">Customers book in seconds, professionals arrive on time.</p></div>
-    </div>
-    <div class="feature-img-block">
-      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" alt="Dashboard analytics">
-      <div class="img-overlay"></div>
-      <div class="img-text"><h4 data-t="fi2_h">Powerful Admin Control</h4><p data-t="fi2_p">Manage bookings, payouts, staff from one panel.</p></div>
-    </div>
-  </div>
-  <div class="built-grid reveal">
-    <a href="https://broomees.com" target="_blank" class="built-card"><div class="built-card-domain">broomees.com</div><p data-t="bc1">On-demand home cleaning and housekeeping service platform.</p><div class="built-card-arrow">↗</div></a>
-    <a href="https://boomzo.in" target="_blank" class="built-card"><div class="built-card-domain">boomzo.in</div><p data-t="bc2">Multi-service aggregator platform serving local customers.</p><div class="built-card-arrow">↗</div></a>
-    <a href="https://withpronto.com" target="_blank" class="built-card"><div class="built-card-domain">withpronto.com</div><p data-t="bc3">On-demand service marketplace with real-time booking.</p><div class="built-card-arrow">↗</div></a>
-    <a href="https://hoora.in" target="_blank" class="built-card"><div class="built-card-domain">hoora.in</div><p data-t="bc4">Home services platform connecting customers with vetted professionals.</p><div class="built-card-arrow">↗</div></a>
-  </div>
-</section>
-
-<!-- SOLUTIONS -->
-<section id="solutions" style="background:#050505;">
-  <div class="reveal">
-    <div class="section-tag" data-t="tag_sol">Choose Your Plan</div>
-    <h2 class="section-title" data-t="sol_title">One Brand, <em>Two Solutions</em></h2>
-  </div>
-  <div class="solutions-grid reveal">
-    <div class="sol-card light">
-      <div class="sol-name">Service Mate <em style="font-style:italic;color:#1A4FBF;">Site</em></div>
-      <div class="sol-subtitle" style="color:#777;" data-t="site_for">For Individual Service Providers</div>
-      <ul class="sol-features">
-        <li data-t="sf1">Your own professional website</li>
-        <li data-t="sf2">Payment Gateway Integration</li>
-        <li data-t="sf3">Email / Gmail Notifications</li>
-        <li data-t="sf4">Customisable Site &amp; Multiple Themes</li>
-        <li data-t="sf5">Bookings and Blog management</li>
-      </ul>
-      <div class="sol-price">₹9,999<span class="sol-price-note"> one-time</span></div>
-      <span class="sol-delivery">⚡ <span data-t="site_del">3 Days Delivery</span></span>
-    </div>
-    <div class="sol-card dark">
-      <div class="sol-name">Service Mate</div>
-      <div class="sol-subtitle" style="color:rgba(255,255,255,0.4);" data-t="app_for">For Platforms &amp; Aggregator Models</div>
-      <ul class="sol-features">
-        <li data-t="af1">Website + Android &amp; iOS Apps</li>
-        <li data-t="af2">Payment Gateway Integration</li>
-        <li data-t="af3">Gmail / Push Notifications</li>
-        <li data-t="af4">Admin Panel included</li>
-        <li data-t="af5">Service Provider App + User App</li>
-        <li data-t="af6">Elementary SEO Setup</li>
-      </ul>
-      <div class="sol-price">₹29,999<span class="sol-price-note" style="color:rgba(255,255,255,0.35);"> one-time</span></div>
-      <span class="sol-delivery">🚀 <span data-t="app_del">1 Week Delivery</span></span>
-    </div>
-  </div>
-  <p class="reveal" style="margin-top:22px;color:var(--gray);font-size:0.85rem;" data-t="addons">💡 Add-ons: Sales &amp; Support · Social Media Marketing · Team Hiring · Ads &amp; Promotions</p>
-</section>
-
-<!-- DEMO -->
-<section class="demo-section" id="demo">
-  <div class="reveal">
-    <div class="section-tag" data-t="tag_demo">Try It Yourself</div>
-    <h2 class="section-title" data-t="demo_title">See Service Mate <em>in Action</em></h2>
-    <p style="color:var(--gray);margin-top:10px;max-width:500px;" data-t="demo_sub">Three live environments. Use OTP <strong style="color:var(--white);">456789</strong> to log in.</p>
-  </div>
-  <div class="demo-grid reveal">
-    <div class="demo-card">
-      <div class="demo-card-img">
-        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80" alt="User app">
-        <div class="di-overlay"></div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">350+</div>
+        <div class="stat-label" data-t="stat1">Projects Delivered</div>
       </div>
-      <div class="demo-card-body">
-        <div class="demo-card-label" data-t="d1_label">Customer Side</div>
-        <div class="demo-card-title" data-t="d1_title">User App</div>
-        <div class="demo-card-desc" data-t="d1_desc">Browse services, book, track professionals, and pay — the full customer journey.</div>
-        <a href="https://app.workzo.neighshopglobal.com" target="_blank" class="demo-link">Open Demo ↗</a>
-        <div class="demo-creds">OTP: <strong>456789</strong></div>
+      <div class="stat-item">
+        <div class="stat-num">5+</div>
+        <div class="stat-label" data-t="stat2">Countries Served</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">7+</div>
+        <div class="stat-label" data-t="stat3">Years Experience</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">1 Wk</div>
+        <div class="stat-label" data-t="stat4">Delivery Time</div>
       </div>
     </div>
-    <div class="demo-card">
-      <div class="demo-card-img">
-        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&q=80" alt="Service provider">
-        <div class="di-overlay"></div>
-      </div>
-      <div class="demo-card-body">
-        <div class="demo-card-label" data-t="d2_label">Service Provider Side</div>
-        <div class="demo-card-title" data-t="d2_title">Provider App</div>
-        <div class="demo-card-desc" data-t="d2_desc">Manage bookings, accept jobs, track earnings — built for service professionals.</div>
-        <a href="https://provider.workzo.neighshopglobal.com" target="_blank" class="demo-link">Open Demo ↗</a>
-        <div class="demo-creds">OTP: <strong>456789</strong></div>
-      </div>
-    </div>
-    <div class="demo-card">
-      <div class="demo-card-img">
-        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="Admin dashboard">
-        <div class="di-overlay"></div>
-      </div>
-      <div class="demo-card-body">
-        <div class="demo-card-label" data-t="d3_label">Platform Owner</div>
-        <div class="demo-card-title" data-t="d3_title">Admin Panel</div>
-        <div class="demo-card-desc" data-t="d3_desc">Control users, providers, bookings, payouts &amp; analytics from one dashboard.</div>
-        <a href="http://admin.workzo.neighshopglobal.com" target="_blank" class="demo-link">Open Demo ↗</a>
-        <div class="demo-creds">User: <strong>admin</strong> &nbsp;|&nbsp; Pass: <strong>admin</strong></div>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- HOW -->
-<section>
-  <div class="how-inner">
+  <!-- BUILT -->
+  <section>
     <div class="reveal">
-      <div class="section-tag" data-t="tag_how">The Process</div>
-      <h2 class="section-title" data-t="how_title">From Enquiry to <em>Live Platform</em></h2>
+      <div class="section-tag" data-t="tag_built">Real Products We Built</div>
+      <h2 class="section-title" data-t="built_title">Demo apps like <em>Urban Company</em></h2>
+      <p style="color:var(--gray);margin-top:10px;max-width:500px;" data-t="built_sub">Actual platforms — not mockups,
+        not promises.</p>
     </div>
-    <div class="steps reveal">
-      <div class="step"><div class="step-num">01</div><div class="step-content"><h4 data-t="s1h">Your Enquiry</h4><p data-t="s1p">Reach out via WhatsApp or call. Tell us your business idea and target market.</p></div></div>
-      <div class="step"><div class="step-num">02</div><div class="step-content"><h4 data-t="s2h">Onboarding &amp; Confirmation</h4><p data-t="s2p">We sign an NDA &amp; contract. You share branding assets. 50% advance is made.</p></div></div>
-      <div class="step"><div class="step-num">03</div><div class="step-content"><h4 data-t="s3h">Team Creation</h4><p data-t="s3p">A dedicated team is assigned and we start building using our proven framework.</p></div></div>
-      <div class="step"><div class="step-num">04</div><div class="step-content"><h4 data-t="s4h">Project Delivery</h4><p data-t="s4p">Your branded platform is delivered in 3 days (Site) or 1 week (full app). 2 revisions included.</p></div></div>
+    <div class="built-grid reveal">
+      <a href="https://broomees.com" target="_blank" class="built-card">
+        <div class="built-card-img"><img src="./assets/broomees.png" alt="Broomees"></div>
+        <div class="built-card-content">
+          <div class="built-card-domain">broomees.com</div>
+          <p data-t="bc1">On-demand home cleaning and housekeeping service platform.</p>
+          <div class="built-card-arrow">↗</div>
+        </div>
+      </a>
+      <a href="https://boomzo.in" target="_blank" class="built-card">
+        <div class="built-card-img"><img src="./assets/boomzo.png" alt="Boomzo"></div>
+        <div class="built-card-content">
+          <div class="built-card-domain">boomzo.in</div>
+          <p data-t="bc2">Multi-service aggregator platform serving local customers.</p>
+          <div class="built-card-arrow">↗</div>
+        </div>
+      </a>
+      <a href="https://withpronto.com" target="_blank" class="built-card">
+        <div class="built-card-img"><img src="./assets/pronto.png" alt="Pronto"></div>
+        <div class="built-card-content">
+          <div class="built-card-domain">withpronto.com</div>
+          <p data-t="bc3">On-demand service marketplace with real-time booking.</p>
+          <div class="built-card-arrow">↗</div>
+        </div>
+      </a>
+      <a href="https://hoora.in" target="_blank" class="built-card">
+        <div class="built-card-img"><img src="./assets/hoora.png" alt="Hoora"></div>
+        <div class="built-card-content">
+          <div class="built-card-domain">hoora.in</div>
+          <p data-t="bc4">Home services platform connecting customers with vetted professionals.</p>
+          <div class="built-card-arrow">↗</div>
+        </div>
+      </a>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- TERMS -->
-<section style="background:#060606;">
-  <div class="reveal">
-    <div class="section-tag" data-t="tag_terms">What to Know</div>
-    <h2 class="section-title" data-t="terms_title">Simple <em>Terms</em></h2>
-  </div>
-  <div class="terms-grid reveal">
-    <div class="term-card"><div class="term-icon">💳</div><h4 data-t="t1h">Your Payment Gateway</h4><p data-t="t1p">We integrate it — you own it. Razorpay, PayU, Cashfree supported.</p></div>
-    <div class="term-card"><div class="term-icon">🎨</div><h4 data-t="t2h">Provide Branding Assets</h4><p data-t="t2p">Logo, brand colors, and copy to be provided by you.</p></div>
-    <div class="term-card"><div class="term-icon">💰</div><h4 data-t="t3h">50% Advance</h4><p data-t="t3p">Paid before work begins. Remaining 50% on delivery.</p></div>
-    <div class="term-card"><div class="term-icon">🔁</div><h4 data-t="t4h">2 Revisions Included</h4><p data-t="t4p">Two rounds of changes included in the price.</p></div>
-    <div class="term-card"><div class="term-icon">📝</div><h4 data-t="t5h">NDA &amp; Contract</h4><p data-t="t5p">Your idea is protected. A formal agreement signed before we begin.</p></div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-section">
-  <div class="reveal">
-    <h2 data-t="cta_h">Ready to Build Your<br><em style="color:var(--yellow);">Own Platform?</em></h2>
-    <p data-t="cta_p">Join 350+ businesses who trusted Neighshop Global. Let's talk.</p>
-    <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;">
-      <a href="tel:+918307802643" class="btn-primary">📞 Call +91 83078 02643</a>
-      <a href="https://www.neighshopglobal.com" target="_blank" class="btn-ghost"><span data-t="cta_web">Visit Website</span> →</a>
+  <!-- SOLUTIONS -->
+  <section id="solutions" style="background:#050505;">
+    <div class="reveal">
+      <div class="section-tag" data-t="tag_sol">Choose Your Plan</div>
+      <h2 class="section-title" data-t="sol_title">All-in-One <em>Solution</em></h2>
     </div>
-    <p style="margin-top:28px;color:var(--gray);font-size:0.83rem;">📍 R3-C4, VPM Coworking, Mansarovar, Jaipur, Rajasthan 302020</p>
-  </div>
-</section>
+    <div class="solutions-grid reveal">
+      <div class="sol-card dark">
+        <div class="sol-name">Service Mate</div>
+        <div class="sol-subtitle" style="color:rgba(255,255,255,0.4);" data-t="app_for">For Platforms &amp; Aggregator
+          Models</div>
+        <ul class="sol-features">
+          <li data-t="af1">Website + Android &amp; iOS Apps</li>
+          <li data-t="af2">Payment Gateway Integration</li>
+          <li data-t="af3">Gmail / Push Notifications</li>
+          <li data-t="af4">Admin Panel included</li>
+          <li data-t="af5">Service Provider App + User App</li>
+          <li data-t="af6">Elementary SEO Setup</li>
+        </ul>
+        <div class="sol-price">₹29,999<span class="sol-price-note" style="color:rgba(255,255,255,0.35);">
+            one-time</span></div>
+        <span class="sol-delivery">🚀 <span data-t="app_del">1 Week Delivery</span></span>
+      </div>
+    </div>
+    <p class="reveal" style="margin-top:22px;color:var(--gray);font-size:0.85rem;" data-t="addons">💡 Add-ons: Sales
+      &amp; Support · Social Media Marketing · Team Hiring · Ads &amp; Promotions</p>
+  </section>
 
-<footer>
-  <div class="footer-brand">Service<span class="accent">Mate</span> by Neighshop Global</div>
-  <div class="footer-links">
-    <a href="https://www.neighshopglobal.com" target="_blank">Website</a>
-    <a href="tel:+918307802643">+91 83078 02643</a>
-    <a href="#demo">Live Demo</a>
-    <a href="#solutions">Pricing</a>
-  </div>
-</footer>
+  <!-- DEMO -->
+  <section class="demo-section" id="demo">
+    <div class="reveal">
+      <div class="section-tag" data-t="tag_demo">Try It Yourself</div>
+      <h2 class="section-title" data-t="demo_title">See Service Mate <em>in Action</em></h2>
+      <p style="color:var(--gray);margin-top:10px;max-width:500px;" data-t="demo_sub">Three live environments. Use OTP
+        <strong style="color:var(--white);">456789</strong> to log in.</p>
+    </div>
+    <div class="demo-grid reveal">
+      <div class="demo-card">
+        <div class="demo-card-img">
+          <img src="./assets/us.png" alt="User app">
+          <div class="di-overlay"></div>
+        </div>
+        <div class="demo-card-body">
+          <div class="demo-card-label" data-t="d1_label">Customer Side</div>
+          <div class="demo-card-title" data-t="d1_title">User App</div>
+          <div class="demo-card-desc" data-t="d1_desc">Browse services, book, track professionals, and pay — the full
+            customer journey.</div>
+          <a href="https://app.workzo.neighshopglobal.com" target="_blank" class="demo-link">Open Demo ↗</a>
+          <div class="demo-creds">OTP: <strong>456789</strong></div>
+        </div>
+      </div>
+      <div class="demo-card">
+        <div class="demo-card-img">
+          <img src="./assets/PA.png" alt="Service provider">
+          <div class="di-overlay"></div>
+        </div>
+        <div class="demo-card-body">
+          <div class="demo-card-label" data-t="d2_label">Service Provider Side</div>
+          <div class="demo-card-title" data-t="d2_title">Provider App</div>
+          <div class="demo-card-desc" data-t="d2_desc">Manage bookings, accept jobs, track earnings — built for service
+            professionals.</div>
+          <a href="https://provider.workzo.neighshopglobal.com" target="_blank" class="demo-link">Open Demo ↗</a>
+          <div class="demo-creds">OTP: <strong>456789</strong></div>
+        </div>
+      </div>
+      <div class="demo-card">
+        <div class="demo-card-img">
+          <img src="./assets/sa.png" alt="Admin dashboard">
+          <div class="di-overlay"></div>
+        </div>
+        <div class="demo-card-body">
+          <div class="demo-card-label" data-t="d3_label">Platform Owner</div>
+          <div class="demo-card-title" data-t="d3_title">Admin Panel</div>
+          <div class="demo-card-desc" data-t="d3_desc">Control users, providers, bookings, payouts &amp; analytics from
+            one dashboard.</div>
+          <a href="http://admin.workzo.neighshopglobal.com" target="_blank" class="demo-link">Open Demo ↗</a>
+          <div class="demo-creds">User: <strong>admin</strong> &nbsp;|&nbsp; Pass: <strong>admin</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<script>
-const T = {
-  en:{name:'English',nav_cta:'Talk to Us',badge:'Built for Service Businesses',hero_h1:'Launch Your Own<br><em>Urban Company</em><br>in 1 Week.',hero_sub:'Get a full-stack on-demand service platform — app, website, admin panel — ready to launch under your brand. No tech headaches.',cta_demo:'See Live Demo',cta_price:'View Pricing',img1:'Home Cleaning',img2:'Electrician',img3:'Plumbing',img4:'Beauty & Wellness',tag_built:'Real Products We Built',built_title:'Platforms <em>Live</em> in the Wild',built_sub:'Actual platforms deployed for clients — not mockups, not promises.',fi1_h:'On-Demand. At Home.',fi1_p:'Customers book in seconds, professionals arrive on time.',fi2_h:'Powerful Admin Control',fi2_p:'Manage bookings, payouts, staff from one panel.',bc1:'On-demand home cleaning and housekeeping service platform.',bc2:'Multi-service aggregator platform serving local customers.',bc3:'On-demand service marketplace with real-time booking.',bc4:'Home services platform connecting customers with vetted professionals.',tag_sol:'Choose Your Plan',sol_title:'One Brand, <em>Two Solutions</em>',site_for:'For Individual Service Providers',app_for:'For Platforms & Aggregator Models',sf1:'Your own professional website',sf2:'Payment Gateway Integration',sf3:'Email / Gmail Notifications',sf4:'Customisable Site & Multiple Themes',sf5:'Bookings and Blog management',site_del:'3 Days Delivery',af1:'Website + Android & iOS Apps',af2:'Payment Gateway Integration',af3:'Gmail / Push Notifications',af4:'Admin Panel included',af5:'Service Provider App + User App',af6:'Elementary SEO Setup',app_del:'1 Week Delivery',addons:'💡 Add-ons: Sales & Support · Social Media Marketing · Team Hiring · Ads & Promotions',tag_demo:'Try It Yourself',demo_title:'See Service Mate <em>in Action</em>',demo_sub:'Three live environments. Use OTP <strong style="color:var(--white);">456789</strong> to log in.',d1_label:'Customer Side',d1_title:'User App',d1_desc:'Browse services, book, track professionals, and pay — the full customer journey.',d2_label:'Service Provider Side',d2_title:'Provider App',d2_desc:'Manage bookings, accept jobs, track earnings — built for service professionals.',d3_label:'Platform Owner',d3_title:'Admin Panel',d3_desc:'Control users, providers, bookings, payouts & analytics from one dashboard.',tag_how:'The Process',how_title:'From Enquiry to <em>Live Platform</em>',s1h:'Your Enquiry',s1p:'Reach out via WhatsApp or call. Tell us your business idea and target market.',s2h:'Onboarding & Confirmation',s2p:'We sign an NDA & contract. You share branding assets. 50% advance is made.',s3h:'Team Creation',s3p:'A dedicated team is assigned and we start building using our proven framework.',s4h:'Project Delivery',s4p:'Your branded platform is delivered in 3 days (Site) or 1 week (full app). 2 revisions included.',tag_terms:'What to Know',terms_title:'Simple <em>Terms</em>',t1h:'Your Payment Gateway',t1p:'We integrate it — you own it. Razorpay, PayU, Cashfree supported.',t2h:'Provide Branding Assets',t2p:'Logo, brand colors, and copy to be provided by you.',t3h:'50% Advance',t3p:'Paid before work begins. Remaining 50% on delivery.',t4h:'2 Revisions Included',t4p:'Two rounds of changes included in the price.',t5h:'NDA & Contract',t5p:'Your idea is protected. A formal agreement signed before we begin.',cta_h:'Ready to Build Your<br><em style="color:var(--yellow);">Own Platform?</em>',cta_p:"Join 350+ businesses who trusted Neighshop Global. Let's talk.",cta_web:'Visit Website',stat1:'Projects Delivered',stat2:'Countries Served',stat3:'Years Experience',stat4:'Delivery Time'},
-  hi:{name:'हिन्दी',nav_cta:'बात करें',badge:'सर्विस बिज़नेस के लिए बना',hero_h1:'अपना खुद का<br><em>Urban Company</em><br>1 हफ्ते में लॉन्च करें।',hero_sub:'पूरा ऑन-डिमांड प्लेटफॉर्म — ऐप, वेबसाइट, एडमिन पैनल — आपके ब्रांड में। कोई टेक झंझट नहीं।',cta_demo:'लाइव डेमो देखें',cta_price:'प्राइसिंग देखें',img1:'होम क्लीनिंग',img2:'इलेक्ट्रीशियन',img3:'प्लंबिंग',img4:'ब्यूटी & वेलनेस',tag_built:'हमारे बनाए प्रोडक्ट्स',built_title:'असली <em>लाइव</em> प्लेटफॉर्म',built_sub:'हमारे क्लाइंट्स के लिए डेप्लॉय किए गए असली प्लेटफॉर्म — कोई मॉकअप नहीं।',fi1_h:'ऑन-डिमांड। घर पर।',fi1_p:'ग्राहक सेकंड में बुक करते हैं, प्रोफेशनल समय पर आते हैं।',fi2_h:'पावरफुल एडमिन कंट्रोल',fi2_p:'बुकिंग, पेआउट, स्टाफ — सब एक पैनल से।',bc1:'ऑन-डिमांड होम क्लीनिंग सर्विस प्लेटफॉर्म।',bc2:'मल्टी-सर्विस एग्रीगेटर प्लेटफॉर्म।',bc3:'रियल-टाइम बुकिंग के साथ सर्विस मार्केटप्लेस।',bc4:'होम सर्विस प्लेटफॉर्म — ग्राहकों को प्रोफेशनल से जोड़ता है।',tag_sol:'प्लान चुनें',sol_title:'एक ब्रांड, <em>दो समाधान</em>',site_for:'व्यक्तिगत सर्विस प्रोवाइडर के लिए',app_for:'प्लेटफॉर्म & एग्रीगेटर मॉडल के लिए',sf1:'आपकी खुद की प्रोफेशनल वेबसाइट',sf2:'पेमेंट गेटवे इंटीग्रेशन',sf3:'Email / Gmail नोटिफिकेशन',sf4:'कस्टमाइज़ेबल साइट & मल्टीपल थीम',sf5:'बुकिंग और ब्लॉग मैनेजमेंट',site_del:'3 दिन में डिलीवरी',af1:'वेबसाइट + Android & iOS ऐप',af2:'पेमेंट गेटवे',af3:'Gmail / पुश नोटिफिकेशन',af4:'एडमिन पैनल शामिल',af5:'सर्विस प्रोवाइडर ऐप + यूजर ऐप',af6:'बेसिक SEO सेटअप',app_del:'1 हफ्ते में डिलीवरी',addons:'💡 ऐड-ऑन: सेल्स & सपोर्ट · सोशल मीडिया · टीम हायरिंग · ऐड्स',tag_demo:'खुद ट्राई करें',demo_title:'Service Mate <em>एक्शन में</em> देखें',demo_sub:'तीन लाइव एनवायरनमेंट। OTP <strong style="color:var(--white);">456789</strong> से लॉगिन करें।',d1_label:'ग्राहक साइड',d1_title:'यूजर ऐप',d1_desc:'सर्विस ब्राउज़ करें, बुक करें, ट्रैक करें — पूरा कस्टमर अनुभव।',d2_label:'सर्विस प्रोवाइडर साइड',d2_title:'प्रोवाइडर ऐप',d2_desc:'बुकिंग मैनेज करें, जॉब एक्सेप्ट करें, कमाई ट्रैक करें।',d3_label:'प्लेटफॉर्म ओनर',d3_title:'एडमिन पैनल',d3_desc:'यूजर, बुकिंग, पेआउट & एनालिटिक्स — एक डैशबोर्ड।',tag_how:'प्रोसेस',how_title:'एनक्वायरी से <em>लाइव प्लेटफॉर्म</em> तक',s1h:'आपकी एनक्वायरी',s1p:'WhatsApp या कॉल करें। बिज़नेस आइडिया और टार्गेट मार्केट बताएं।',s2h:'ऑनबोर्डिंग & कन्फर्मेशन',s2p:'NDA & कॉन्ट्रैक्ट साइन। ब्रांडिंग असेट्स शेयर करें। 50% एडवांस।',s3h:'टीम क्रिएशन',s3p:'डेडिकेटेड टीम असाइन होती है और काम शुरू होता है।',s4h:'प्रोजेक्ट डिलीवरी',s4p:'3 दिन (साइट) या 1 हफ्ते (फुल ऐप) में डिलीवरी। 2 रिविजन शामिल।',tag_terms:'जरूरी बातें',terms_title:'सरल <em>नियम</em>',t1h:'आपका पेमेंट गेटवे',t1p:'हम इंटीग्रेट करते हैं — मालिक आप।',t2h:'ब्रांडिंग असेट्स दें',t2p:'लोगो, ब्रांड कलर और कॉपी आपको देनी होगी।',t3h:'50% एडवांस',t3p:'काम शुरू होने से पहले। बाकी 50% डिलीवरी पर।',t4h:'2 रिविजन शामिल',t4p:'दो राउंड के बदलाव प्राइस में शामिल हैं।',t5h:'NDA & कॉन्ट्रैक्ट',t5p:'आपका आइडिया सुरक्षित है।',cta_h:'अपना <em style="color:var(--yellow);">खुद का प्लेटफॉर्म</em><br>बनाने के लिए तैयार हैं?',cta_p:'350+ बिज़नेस ने Neighshop Global पर भरोसा किया। आइए बात करें।',cta_web:'वेबसाइट विजिट करें',stat1:'प्रोजेक्ट डिलीवर',stat2:'देश',stat3:'साल का अनुभव',stat4:'डिलीवरी टाइम'},
-  ta:{name:'தமிழ்',nav_cta:'தொடர்பு கொள்ளுங்கள்',badge:'சேவை வணிகங்களுக்காக',hero_h1:'உங்கள் சொந்த<br><em>Urban Company</em>-ஐ<br>1 வாரத்தில் தொடங்குங்கள்.',hero_sub:'முழு ஆன்-டிமாண்ட் சேவை தளம் — ஆப், வெப்சைட், அட்மின் பேனல் — உங்கள் பிராண்டில்.',cta_demo:'லைவ் டெமோ பார்க்கவும்',cta_price:'விலை பார்க்கவும்',img1:'வீட்டு சுத்தம்',img2:'மின்சாரவாதி',img3:'குழாய் பணி',img4:'அழகு சேவை',tag_built:'நாங்கள் உருவாக்கிய தளங்கள்',built_title:'உண்மையான <em>லைவ்</em> தளங்கள்',built_sub:'எங்கள் வாடிக்கையாளர்களுக்காக வரிசைப்படுத்தப்பட்ட உண்மையான தளங்கள்.',fi1_h:'ஆன்-டிமாண்ட். வீட்டிலேயே.',fi1_p:'வாடிக்கையாளர்கள் நொடியில் பதிவு செய்கிறார்கள்.',fi2_h:'சக்திவாய்ந்த நிர்வாகம்',fi2_p:'முன்பதிவு, ஊதியம், பணியாளர்கள் — ஒரே இடத்தில்.',bc1:'ஆன்-டிமாண்ட் வீட்டு சுத்தம் சேவை தளம்.',bc2:'பல சேவை ஒருங்கிணைப்பு தளம்.',bc3:'நேரடி பதிவுடன் சேவை சந்தை.',bc4:'வீட்டு சேவைகள் — வாடிக்கையாளர்களை நிபுணர்களுடன் இணைக்கிறது.',tag_sol:'உங்கள் திட்டத்தை தேர்ந்தெடுங்கள்',sol_title:'ஒரு பிராண்ட், <em>இரண்டு தீர்வுகள்</em>',site_for:'தனிப்பட்ட சேவை வழங்குநர்களுக்காக',app_for:'தளங்கள் & ஒருங்கிணைப்பு மாதிரிகளுக்காக',sf1:'உங்கள் சொந்த வலைத்தளம்',sf2:'பணம் செலுத்தும் நுழைவாயில்',sf3:'மின்னஞ்சல் அறிவிப்புகள்',sf4:'தனிப்பயனாக்கத்தக்க தளம்',sf5:'பதிவு மற்றும் வலைப்பதிவு',site_del:'3 நாட்களில் டெலிவரி',af1:'வலைத்தளம் + Android & iOS',af2:'பணம் செலுத்தும் நுழைவாயில்',af3:'அறிவிப்புகள்',af4:'நிர்வாக பேனல்',af5:'சேவை வழங்குநர் + பயனர் ஆப்',af6:'அடிப்படை SEO',app_del:'1 வாரத்தில் டெலிவரி',addons:'💡 கூடுதல்: விற்பனை & ஆதரவு · சமூக ஊடக · குழு நியமனம்',tag_demo:'நீங்களே முயற்சி செய்யுங்கள்',demo_title:'Service Mate-ஐ <em>நேரில் பாருங்கள்</em>',demo_sub:'மூன்று நேரடி சூழல்கள். OTP <strong style="color:var(--white);">456789</strong> மூலம் உள்நுழைக.',d1_label:'வாடிக்கையாளர் பக்கம்',d1_title:'பயனர் ஆப்',d1_desc:'சேவைகள் பார்க்கவும், பதிவு செய்யவும், கண்காணிக்கவும்.',d2_label:'சேவை வழங்குநர்',d2_title:'வழங்குநர் ஆப்',d2_desc:'பதிவுகள் நிர்வகிக்கவும், வேலைகள் ஏற்கவும்.',d3_label:'தள உரிமையாளர்',d3_title:'நிர்வாக பேனல்',d3_desc:'யாவரையும், பதிவுகளையும், பகுப்பாய்வையும் ஒரே இடத்தில் நிர்வகிக்கவும்.',tag_how:'செயல்முறை',how_title:'விசாரணையிலிருந்து <em>நேரடி தளம்</em> வரை',s1h:'உங்கள் விசாரணை',s1p:'WhatsApp அல்லது அழைப்பு மூலம் தொடர்பு கொள்ளுங்கள்.',s2h:'ஆன்போர்டிங் & உறுதி',s2p:'NDA & ஒப்பந்தம். 50% முன்பணம்.',s3h:'குழு உருவாக்கம்',s3p:'அர்ப்பணிக்கப்பட்ட குழு நியமிக்கப்படும்.',s4h:'திட்ட டெலிவரி',s4p:'3 நாட்கள் அல்லது 1 வாரத்தில் டெலிவரி.',tag_terms:'தெரிந்துகொள்ளுங்கள்',terms_title:'எளிய <em>விதிகள்</em>',t1h:'உங்கள் பேமெண்ட் கேட்வே',t1p:'நாங்கள் ஒருங்கிணைக்கிறோம் — நீங்கள் மாலிக்.',t2h:'பிராண்டிங் சொத்துக்கள்',t2p:'லோகோ, நிறங்கள் மற்றும் உள்ளடக்கம்.',t3h:'50% முன்பணம்',t3p:'வேலை தொடங்குவதற்கு முன்பு.',t4h:'2 திருத்தங்கள்',t4p:'இரண்டு திருத்தங்கள் விலையில் உள்ளடங்கியது.',t5h:'NDA & ஒப்பந்தம்',t5p:'உங்கள் யோசனை பாதுகாக்கப்படும்.',cta_h:'உங்கள் <em style="color:var(--yellow);">சொந்த தளத்தை</em><br>கட்டமைக்க தயாரா?',cta_p:'350+ வணிகங்கள் Neighshop Global-ஐ நம்பினார்கள்.',cta_web:'வலைத்தளம் பார்வையிடுக',stat1:'திட்டங்கள்',stat2:'நாடுகள்',stat3:'ஆண்டுகள்',stat4:'டெலிவரி நேரம்'},
-  kn:{name:'ಕನ್ನಡ',nav_cta:'ಮಾತನಾಡಿ',badge:'ಸೇವಾ ವ್ಯವಹಾರಗಳಿಗಾಗಿ',hero_h1:'ನಿಮ್ಮ ಸ್ವಂತ<br><em>Urban Company</em>-ಅನ್ನು<br>1 ವಾರದಲ್ಲಿ ಲಾಂಚ್ ಮಾಡಿ.',hero_sub:'ಸಂಪೂರ್ಣ ಆನ್-ಡಿಮಾಂಡ್ ಸೇವಾ ವೇದಿಕೆ — ಆ್ಯಪ್, ವೆಬ್‌ಸೈಟ್, ಅಡ್ಮಿನ್ ಪ್ಯಾನಲ್ — ನಿಮ್ಮ ಬ್ರ್ಯಾಂಡ್‌ನಲ್ಲಿ.',cta_demo:'ಲೈವ್ ಡೆಮೋ ನೋಡಿ',cta_price:'ಬೆಲೆ ನೋಡಿ',img1:'ಮನೆ ಸ್ವಚ್ಛತೆ',img2:'ಎಲೆಕ್ಟ್ರಿಶಿಯನ್',img3:'ಪ್ಲಂಬಿಂಗ್',img4:'ಸೌಂದರ್ಯ & ಆರೋಗ್ಯ',tag_built:'ನಾವು ನಿರ್ಮಿಸಿದ ಉತ್ಪನ್ನಗಳು',built_title:'<em>ಲೈವ್</em> ಆಗಿರುವ ವೇದಿಕೆಗಳು',built_sub:'ನಮ್ಮ ಕ್ಲೈಂಟ್‌ಗಳಿಗಾಗಿ ನಿಯೋಜಿಸಿದ ನಿಜವಾದ ವೇದಿಕೆಗಳು.',fi1_h:'ಆನ್-ಡಿಮಾಂಡ್. ಮನೆಯಲ್ಲಿ.',fi1_p:'ಗ್ರಾಹಕರು ಸೆಕೆಂಡುಗಳಲ್ಲಿ ಬುಕ್ ಮಾಡುತ್ತಾರೆ.',fi2_h:'ಶಕ್ತಿಶಾಲಿ ಅಡ್ಮಿನ್ ನಿಯಂತ್ರಣ',fi2_p:'ಬುಕಿಂಗ್, ಪಾವತಿ, ಸಿಬ್ಬಂದಿ — ಒಂದೇ ಪ್ಯಾನಲ್.',bc1:'ಆನ್-ಡಿಮಾಂಡ್ ಮನೆ ಸ್ವಚ್ಛತೆ ಸೇವಾ ವೇದಿಕೆ.',bc2:'ಮಲ್ಟಿ-ಸರ್ವಿಸ್ ಅಗ್ರಿಗೇಟರ್ ವೇದಿಕೆ.',bc3:'ರಿಯಲ್-ಟೈಮ್ ಬುಕಿಂಗ್‌ನೊಂದಿಗೆ ಸೇವಾ ಮಾರ್ಕೆಟ್.',bc4:'ಗ್ರಾಹಕರನ್ನು ವೃತ್ತಿಪರರೊಂದಿಗೆ ಸಂಪರ್ಕಿಸುವ ವೇದಿಕೆ.',tag_sol:'ನಿಮ್ಮ ಯೋಜನೆ ಆಯ್ಕೆ ಮಾಡಿ',sol_title:'ಒಂದು ಬ್ರ್ಯಾಂಡ್, <em>ಎರಡು ಪರಿಹಾರಗಳು</em>',site_for:'ವ್ಯಕ್ತಿಗತ ಸೇವಾ ಪೂರೈಕೆದಾರರಿಗಾಗಿ',app_for:'ವೇದಿಕೆಗಳು & ಅಗ್ರಿಗೇಟರ್ ಮಾದರಿಗಳಿಗಾಗಿ',sf1:'ನಿಮ್ಮ ಸ್ವಂತ ವೃತ್ತಿಪರ ವೆಬ್‌ಸೈಟ್',sf2:'ಪೇಮೆಂಟ್ ಗೇಟ್‌ವೇ ಸಂಯೋಜನೆ',sf3:'ಇಮೇಲ್ / Gmail ಅಧಿಸೂಚನೆಗಳು',sf4:'ಕಸ್ಟಮೈಸ್ ಮಾಡಬಹುದಾದ ಸೈಟ್',sf5:'ಬುಕಿಂಗ್ ಮತ್ತು ಬ್ಲಾಗ್ ನಿರ್ವಹಣೆ',site_del:'3 ದಿನಗಳಲ್ಲಿ ಡೆಲಿವರಿ',af1:'ವೆಬ್‌ಸೈಟ್ + Android & iOS ಆ್ಯಪ್‌ಗಳು',af2:'ಪೇಮೆಂಟ್ ಗೇಟ್‌ವೇ',af3:'Gmail / ಪುಶ್ ಅಧಿಸೂಚನೆಗಳು',af4:'ಅಡ್ಮಿನ್ ಪ್ಯಾನಲ್ ಸೇರಿದೆ',af5:'ಸೇವಾ ಪೂರೈಕೆದಾರ ಆ್ಯಪ್ + ಬಳಕೆದಾರ ಆ್ಯಪ್',af6:'ಮೂಲ SEO ಸೆಟಪ್',app_del:'1 ವಾರದಲ್ಲಿ ಡೆಲಿವರಿ',addons:'💡 ಆಡ್-ಆನ್‌ಗಳು: ಮಾರಾಟ & ಬೆಂಬಲ · ಸಾಮಾಜಿಕ ಮಾಧ್ಯಮ · ತಂಡ ನೇಮಕಾತಿ',tag_demo:'ನೀವೇ ಪ್ರಯತ್ನಿಸಿ',demo_title:'Service Mate ಅನ್ನು <em>ನೇರವಾಗಿ ನೋಡಿ</em>',demo_sub:'ಮೂರು ಲೈವ್ ಪರಿಸರಗಳು. OTP <strong style="color:var(--white);">456789</strong> ಬಳಸಿ ಲಾಗಿನ್ ಮಾಡಿ.',d1_label:'ಗ್ರಾಹಕ ಭಾಗ',d1_title:'ಬಳಕೆದಾರ ಆ್ಯಪ್',d1_desc:'ಸೇವೆಗಳನ್ನು ಬ್ರೌಸ್ ಮಾಡಿ, ಬುಕ್ ಮಾಡಿ, ಟ್ರ್ಯಾಕ್ ಮಾಡಿ.',d2_label:'ಸೇವಾ ಪೂರೈಕೆದಾರ ಭಾಗ',d2_title:'ಪ್ರೊವೈಡರ್ ಆ್ಯಪ್',d2_desc:'ಬುಕಿಂಗ್ ನಿರ್ವಹಿಸಿ, ಕೆಲಸ ಸ್ವೀಕರಿಸಿ, ಗಳಿಕೆ ಟ್ರ್ಯಾಕ್ ಮಾಡಿ.',d3_label:'ವೇದಿಕೆ ಮಾಲೀಕ',d3_title:'ಅಡ್ಮಿನ್ ಪ್ಯಾನಲ್',d3_desc:'ಬಳಕೆದಾರರು, ಬುಕಿಂಗ್, ಪಾವತಿ & ವಿಶ್ಲೇಷಣೆ — ಒಂದು ಡ್ಯಾಶ್‌ಬೋರ್ಡ್.',tag_how:'ಪ್ರಕ್ರಿಯೆ',how_title:'ವಿಚಾರಣೆಯಿಂದ <em>ಲೈವ್ ವೇದಿಕೆ</em>ಯವರೆಗೆ',s1h:'ನಿಮ್ಮ ವಿಚಾರಣೆ',s1p:'WhatsApp ಅಥವಾ ಕರೆ ಮೂಲಕ ಸಂಪರ್ಕಿಸಿ.',s2h:'ಆನ್‌ಬೋರ್ಡಿಂಗ್ & ದೃಢೀಕರಣ',s2p:'NDA & ಒಪ್ಪಂದ ಸಹಿ. 50% ಮುಂಗಡ.',s3h:'ತಂಡ ರಚನೆ',s3p:'ಸಮರ್ಪಿತ ತಂಡ ನಿಯೋಜಿಸಲಾಗುತ್ತದೆ.',s4h:'ಯೋಜನೆ ಡೆಲಿವರಿ',s4p:'3 ದಿನ (ಸೈಟ್) ಅಥವಾ 1 ವಾರ (ಫುಲ್ ಆ್ಯಪ್). 2 ತಿದ್ದುಪಡಿಗಳು ಸೇರಿದೆ.',tag_terms:'ತಿಳಿದುಕೊಳ್ಳಿ',terms_title:'ಸರಳ <em>ನಿಯಮಗಳು</em>',t1h:'ನಿಮ್ಮ ಪೇಮೆಂಟ್ ಗೇಟ್‌ವೇ',t1p:'ನಾವು ಸಂಯೋಜಿಸುತ್ತೇವೆ — ನೀವು ಮಾಲೀಕ.',t2h:'ಬ್ರ್ಯಾಂಡಿಂಗ್ ಆಸ್ತಿಗಳನ್ನು ಒದಗಿಸಿ',t2p:'ಲೋಗೋ, ಬ್ರ್ಯಾಂಡ್ ಬಣ್ಣಗಳು ಮತ್ತು ವಿಷಯ.',t3h:'50% ಮುಂಗಡ',t3p:'ಕೆಲಸ ಪ್ರಾರಂಭಿಸುವ ಮೊದಲು.',t4h:'2 ತಿದ್ದುಪಡಿಗಳು ಸೇರಿದೆ',t4p:'ಎರಡು ಬದಲಾವಣೆ ಸುತ್ತುಗಳು ಸೇರಿದೆ.',t5h:'NDA & ಒಪ್ಪಂದ',t5p:'ನಿಮ್ಮ ಆಲೋಚನೆ ರಕ್ಷಿಸಲ್ಪಡುತ್ತದೆ.',cta_h:'ನಿಮ್ಮ <em style="color:var(--yellow);">ಸ್ವಂತ ವೇದಿಕೆ</em><br>ನಿರ್ಮಿಸಲು ಸಿದ್ಧರಿದ್ದೀರಾ?',cta_p:'350+ ವ್ಯವಹಾರಗಳು Neighshop Global ಅನ್ನು ನಂಬಿದವು.',cta_web:'ವೆಬ್‌ಸೈಟ್ ಭೇಟಿ ಮಾಡಿ',stat1:'ಯೋಜನೆಗಳು',stat2:'ದೇಶಗಳು',stat3:'ವರ್ಷಗಳ ಅನುಭವ',stat4:'ಡೆಲಿವರಿ ಸಮಯ'},
-  ur:{name:'اردو',nav_cta:'بات کریں',badge:'سروس کاروبار کے لیے',hero_h1:'اپنی <em>Urban Company</em><br>1 ہفتے میں لانچ کریں۔',hero_sub:'مکمل آن-ڈیمانڈ سروس پلیٹ فارم — ایپ، ویب سائٹ، ایڈمن پینل — آپ کے برانڈ کے نام پر۔',cta_demo:'لائیو ڈیمو دیکھیں',cta_price:'قیمت دیکھیں',img1:'گھر کی صفائی',img2:'الیکٹریشن',img3:'پلمبنگ',img4:'بیوٹی & ویلنیس',tag_built:'ہمارے بنائے پلیٹ فارم',built_title:'اصلی <em>لائیو</em> پلیٹ فارم',built_sub:'ہمارے کلائنٹس کے لیے تعینات کیے گئے اصلی پلیٹ فارم۔',fi1_h:'آن-ڈیمانڈ۔ گھر پر۔',fi1_p:'گاہک سیکنڈوں میں بک کرتے ہیں، پیشہ ور وقت پر آتے ہیں۔',fi2_h:'طاقتور ایڈمن کنٹرول',fi2_p:'بکنگ، ادائیگی، عملہ — سب ایک جگہ سے۔',bc1:'آن-ڈیمانڈ گھر کی صفائی سروس پلیٹ فارم۔',bc2:'ملٹی-سروس ایگریگیٹر پلیٹ فارم۔',bc3:'ریئل-ٹائم بکنگ کے ساتھ سروس مارکیٹ پلیس۔',bc4:'گھریلو خدمات — گاہکوں کو ماہرین سے جوڑتا ہے۔',tag_sol:'اپنا پلان چنیں',sol_title:'ایک برانڈ، <em>دو حل</em>',site_for:'انفرادی سروس فراہم کنندگان کے لیے',app_for:'پلیٹ فارم اور ایگریگیٹر ماڈلز کے لیے',sf1:'آپ کی اپنی پیشہ ور ویب سائٹ',sf2:'پیمنٹ گیٹ وے انٹیگریشن',sf3:'ای میل / Gmail اطلاعات',sf4:'حسب ضرورت سائٹ اور تھیم',sf5:'بکنگ اور بلاگ مینجمنٹ',site_del:'3 دنوں میں ڈیلیوری',af1:'ویب سائٹ + Android & iOS ایپس',af2:'پیمنٹ گیٹ وے',af3:'Gmail / پش نوٹیفیکیشنز',af4:'ایڈمن پینل شامل',af5:'سروس پرووائیڈر ایپ + یوزر ایپ',af6:'بنیادی SEO سیٹ اپ',app_del:'1 ہفتے میں ڈیلیوری',addons:'💡 ایڈ-آنز: سیلز & سپورٹ · سوشل میڈیا · ٹیم ہائرنگ',tag_demo:'خود آزمائیں',demo_title:'Service Mate کو <em>عملی طور پر دیکھیں</em>',demo_sub:'تین لائیو ماحول۔ OTP <strong style="color:var(--white);">456789</strong> سے لاگ ان کریں۔',d1_label:'گاہک کا حصہ',d1_title:'یوزر ایپ',d1_desc:'خدمات براؤز کریں، بک کریں، ٹریک کریں۔',d2_label:'سروس فراہم کنندہ',d2_title:'پرووائیڈر ایپ',d2_desc:'بکنگ منیج کریں، کام قبول کریں، کمائی ٹریک کریں۔',d3_label:'پلیٹ فارم مالک',d3_title:'ایڈمن پینل',d3_desc:'یوزرز، بکنگ، ادائیگی اور تجزیات — ایک ڈیش بورڈ۔',tag_how:'عمل',how_title:'انکوائری سے <em>لائیو پلیٹ فارم</em> تک',s1h:'آپ کی انکوائری',s1p:'WhatsApp یا کال کریں۔ کاروباری خیال بتائیں۔',s2h:'آن بورڈنگ و تصدیق',s2p:'NDA اور معاہدے پر دستخط۔ 50% پیشگی ادائیگی۔',s3h:'ٹیم تشکیل',s3p:'ایک سرشار ٹیم تفویض کی جاتی ہے۔',s4h:'پروجیکٹ ڈیلیوری',s4p:'3 دن (سائٹ) یا 1 ہفتے (مکمل ایپ) میں ڈیلیوری۔',tag_terms:'ضروری باتیں',terms_title:'سادہ <em>شرائط</em>',t1h:'آپ کا پیمنٹ گیٹ وے',t1p:'ہم انٹیگریٹ کریں گے — آپ مالک رہیں گے۔',t2h:'برانڈنگ اثاثے فراہم کریں',t2p:'لوگو، برانڈ رنگ اور مواد آپ کو دینا ہوگا۔',t3h:'50% پیشگی',t3p:'کام شروع ہونے سے پہلے۔ باقی 50% ڈیلیوری پر۔',t4h:'2 ترامیم شامل',t4p:'دو دور کی تبدیلیاں قیمت میں شامل ہیں۔',t5h:'NDA اور معاہدہ',t5p:'آپ کا خیال محفوظ رہے گا۔',cta_h:'اپنا <em style="color:var(--yellow);">خود کا پلیٹ فارم</em><br>بنانے کے لیے تیار ہیں؟',cta_p:'350+ کاروباروں نے Neighshop Global پر بھروسہ کیا۔',cta_web:'ویب سائٹ وزٹ کریں',stat1:'پروجیکٹ',stat2:'ممالک',stat3:'سال کا تجربہ',stat4:'ڈیلیوری وقت'}
-};
+  <!-- HOW -->
+  <section>
+    <div class="how-inner">
+      <div class="reveal">
+        <div class="section-tag" data-t="tag_how">The Process</div>
+        <h2 class="section-title" data-t="how_title">From Enquiry to <em>Live Platform</em></h2>
+      </div>
+      <div class="steps reveal">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <h4 data-t="s1h">Your Enquiry</h4>
+            <p data-t="s1p">Reach out via WhatsApp or call. Tell us your business idea and target market.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <h4 data-t="s2h">Onboarding &amp; Confirmation</h4>
+            <p data-t="s2p">We sign an NDA &amp; contract. You share branding assets. 50% advance is made.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <h4 data-t="s3h">Team Creation</h4>
+            <p data-t="s3p">A dedicated team is assigned and we start building using our proven framework.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-content">
+            <h4 data-t="s4h">Project Delivery</h4>
+            <p data-t="s4p">Your branded platform is delivered in 3 days (Site) or 1 week (full app). 2 revisions
+              included.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-let currentLang = 'en';
-function toggleLang(){
-  document.getElementById('langBtn').classList.toggle('open');
-  document.getElementById('langDropdown').classList.toggle('open');
-}
-document.addEventListener('click', e => {
-  if(!e.target.closest('.lang-switcher')){
-    document.getElementById('langBtn').classList.remove('open');
-    document.getElementById('langDropdown').classList.remove('open');
-  }
-});
-function setLang(code){
-  currentLang = code;
-  const d = T[code];
-  document.getElementById('langLabel').textContent = d.name;
-  document.body.style.direction = code === 'ur' ? 'rtl' : 'ltr';
-  document.querySelectorAll('.lang-option').forEach(o => o.classList.remove('active'));
-  document.querySelector(`.lang-option[onclick="setLang('${code}')"]`).classList.add('active');
-  document.querySelectorAll('[data-t]').forEach(el => {
-    const k = el.getAttribute('data-t');
-    if(d[k] !== undefined) el.innerHTML = d[k];
-  });
-  document.getElementById('langBtn').classList.remove('open');
-  document.getElementById('langDropdown').classList.remove('open');
-}
+  <!-- TERMS -->
+  <section style="background:#060606;">
+    <div class="reveal">
+      <div class="section-tag" data-t="tag_terms">What to Know</div>
+      <h2 class="section-title" data-t="terms_title">Simple <em>Terms</em></h2>
+    </div>
+    <div class="terms-grid reveal">
+      <div class="term-card">
+        <div class="term-icon">💳</div>
+        <h4 data-t="t1h">Your Payment Gateway</h4>
+        <p data-t="t1p">We integrate it — you own it. Razorpay, PayU, Cashfree supported.</p>
+      </div>
+      <div class="term-card">
+        <div class="term-icon">🎨</div>
+        <h4 data-t="t2h">Provide Branding Assets</h4>
+        <p data-t="t2p">Logo, brand colors, and copy to be provided by you.</p>
+      </div>
+      <div class="term-card">
+        <div class="term-icon">💰</div>
+        <h4 data-t="t3h">50% Advance</h4>
+        <p data-t="t3p">Paid before work begins. Remaining 50% on delivery.</p>
+      </div>
+      <div class="term-card">
+        <div class="term-icon">🔁</div>
+        <h4 data-t="t4h">2 Revisions Included</h4>
+        <p data-t="t4p">Two rounds of changes included in the price.</p>
+      </div>
+      <div class="term-card">
+        <div class="term-icon">📝</div>
+        <h4 data-t="t5h">NDA &amp; Contract</h4>
+        <p data-t="t5p">Your idea is protected. A formal agreement signed before we begin.</p>
+      </div>
+    </div>
+  </section>
 
-// Scroll reveal
-const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } }), {threshold:0.1});
-document.querySelectorAll('.reveal').forEach(r => io.observe(r));
-</script>
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="reveal">
+      <h2 data-t="cta_h">Ready to Build Your<br><em style="color:var(--yellow);">Own Platform?</em></h2>
+      <p data-t="cta_p">Join 350+ businesses who trusted Neighshop Global. Let's talk.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;">
+        <a href="tel:+918307802643" class="btn-primary">📞 Call +91 83078 02643</a>
+        <a href="https://www.neighshopglobal.com" target="_blank" class="btn-ghost"><span data-t="cta_web">Visit
+            Website</span> →</a>
+      </div>
+      <p style="margin-top:28px;color:var(--gray);font-size:0.83rem;">📍 R3-C4, VPM Coworking, Mansarovar, Jaipur,
+        Rajasthan 302020</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-brand">Service<span class="accent">Mate</span> by Neighshop Global</div>
+    <div class="footer-links">
+      <a href="https://www.neighshopglobal.com" target="_blank">Website</a>
+      <a href="tel:+918307802643">+91 83078 02643</a>
+      <a href="#demo">Live Demo</a>
+      <a href="#solutions">Pricing</a>
+    </div>
+  </footer>
+
+  <script>
+    const T = {
+      en: { name: 'English', nav_cta: 'Talk to Us', badge: 'Built for Service Businesses', hero_h1: 'Launch Your Own<br><em>Urban Company</em><br>in 1 Week.', hero_sub: 'Get a full-stack on-demand service platform — app, website, admin panel — ready to launch under your brand. No tech headaches.', cta_demo: 'See Live Demo', cta_price: 'View Pricing', img1: 'Home Cleaning', img2: 'Electrician', img3: 'Plumbing', img4: 'Beauty & Wellness', tag_built: 'Real Products We Built', built_title: 'Demo apps like <em>Urban Company</em>', built_sub: 'Actual platforms deployed for clients — not mockups, not promises.', fi1_h: 'On-Demand. At Home.', fi1_p: 'Customers book in seconds, professionals arrive on time.', fi2_h: 'Powerful Admin Control', fi2_p: 'Manage bookings, payouts, staff from one panel.', bc1: 'On-demand home cleaning and housekeeping service platform.', bc2: 'Multi-service aggregator platform serving local customers.', bc3: 'On-demand service marketplace with real-time booking.', bc4: 'Home services platform connecting customers with vetted professionals.', tag_sol: 'Choose Your Plan', sol_title: 'One Brand, <em>Two Solutions</em>', site_for: 'For Individual Service Providers', app_for: 'For Platforms & Aggregator Models', sf1: 'Your own professional website', sf2: 'Payment Gateway Integration', sf3: 'Email / Gmail Notifications', sf4: 'Customisable Site & Multiple Themes', sf5: 'Bookings and Blog management', site_del: '3 Days Delivery', af1: 'Website + Android & iOS Apps', af2: 'Payment Gateway Integration', af3: 'Gmail / Push Notifications', af4: 'Admin Panel included', af5: 'Service Provider App + User App', af6: 'Elementary SEO Setup', app_del: '1 Week Delivery', addons: '💡 Add-ons: Sales & Support · Social Media Marketing · Team Hiring · Ads & Promotions', tag_demo: 'Try It Yourself', demo_title: 'See Service Mate <em>in Action</em>', demo_sub: 'Three live environments. Use OTP <strong style="color:var(--white);">456789</strong> to log in.', d1_label: 'Customer Side', d1_title: 'User App', d1_desc: 'Browse services, book, track professionals, and pay — the full customer journey.', d2_label: 'Service Provider Side', d2_title: 'Provider App', d2_desc: 'Manage bookings, accept jobs, track earnings — built for service professionals.', d3_label: 'Platform Owner', d3_title: 'Admin Panel', d3_desc: 'Control users, providers, bookings, payouts & analytics from one dashboard.', tag_how: 'The Process', how_title: 'From Enquiry to <em>Live Platform</em>', s1h: 'Your Enquiry', s1p: 'Reach out via WhatsApp or call. Tell us your business idea and target market.', s2h: 'Onboarding & Confirmation', s2p: 'We sign an NDA & contract. You share branding assets. 50% advance is made.', s3h: 'Team Creation', s3p: 'A dedicated team is assigned and we start building using our proven framework.', s4h: 'Project Delivery', s4p: 'Your branded platform is delivered in 3 days (Site) or 1 week (full app). 2 revisions included.', tag_terms: 'What to Know', terms_title: 'Simple <em>Terms</em>', t1h: 'Your Payment Gateway', t1p: 'We integrate it — you own it. Razorpay, PayU, Cashfree supported.', t2h: 'Provide Branding Assets', t2p: 'Logo, brand colors, and copy to be provided by you.', t3h: '50% Advance', t3p: 'Paid before work begins. Remaining 50% on delivery.', t4h: '2 Revisions Included', t4p: 'Two rounds of changes included in the price.', t5h: 'NDA & Contract', t5p: 'Your idea is protected. A formal agreement signed before we begin.', cta_h: 'Ready to Build Your<br><em style="color:var(--yellow);">Own Platform?</em>', cta_p: "Join 350+ businesses who trusted Neighshop Global. Let's talk.", cta_web: 'Visit Website', stat1: 'Projects Delivered', stat2: 'Countries Served', stat3: 'Years Experience', stat4: 'Delivery Time' },
+      hi: { name: 'हिन्दी', nav_cta: 'बात करें', badge: 'सर्विस बिज़नेस के लिए बना', hero_h1: 'अपना खुद का<br><em>Urban Company</em><br>1 हफ्ते में लॉन्च करें।', hero_sub: 'पूरा ऑन-डिमांड प्लेटफॉर्म — ऐप, वेबसाइट, एडमिन पैनल — आपके ब्रांड में। कोई टेक झंझट नहीं।', cta_demo: 'लाइव डेमो देखें', cta_price: 'प्राइसिंग देखें', img1: 'होम क्लीनिंग', img2: 'इलेक्ट्रीशियन', img3: 'प्लंबिंग', img4: 'ब्यूटी & वेलनेस', tag_built: 'हमारे बनाए प्रोडक्ट्स', built_title: 'असली <em>लाइव</em> प्लेटफॉर्म', built_sub: 'हमारे क्लाइंट्स के लिए डेप्लॉय किए गए असली प्लेटफॉर्म — कोई मॉकअप नहीं।', fi1_h: 'ऑन-डिमांड। घर पर।', fi1_p: 'ग्राहक सेकंड में बुक करते हैं, प्रोफेशनल समय पर आते हैं।', fi2_h: 'पावरफुल एडमिन कंट्रोल', fi2_p: 'बुकिंग, पेआउट, स्टाफ — सब एक पैनल से।', bc1: 'ऑन-डिमांड होम क्लीनिंग सर्विस प्लेटफॉर्म।', bc2: 'मल्टी-सर्विस एग्रीगेटर प्लेटफॉर्म।', bc3: 'रियल-टाइम बुकिंग के साथ सर्विस मार्केटप्लेस।', bc4: 'होम सर्विस प्लेटफॉर्म — ग्राहकों को प्रोफेशनल से जोड़ता है।', tag_sol: 'प्लान चुनें', sol_title: 'एक ब्रांड, <em>दो समाधान</em>', site_for: 'व्यक्तिगत सर्विस प्रोवाइडर के लिए', app_for: 'प्लेटफॉर्म & एग्रीगेटर मॉडल के लिए', sf1: 'आपकी खुद की प्रोफेशनल वेबसाइट', sf2: 'पेमेंट गेटवे इंटीग्रेशन', sf3: 'Email / Gmail नोटिफिकेशन', sf4: 'कस्टमाइज़ेबल साइट & मल्टीपल थीम', sf5: 'बुकिंग और ब्लॉग मैनेजमेंट', site_del: '3 दिन में डिलीवरी', af1: 'वेबसाइट + Android & iOS ऐप', af2: 'पेमेंट गेटवे', af3: 'Gmail / पुश नोटिफिकेशन', af4: 'एडमिन पैनल शामिल', af5: 'सर्विस प्रोवाइडर ऐप + यूजर ऐप', af6: 'बेसिक SEO सेटअप', app_del: '1 हफ्ते में डिलीवरी', addons: '💡 ऐड-ऑन: सेल्स & सपोर्ट · सोशल मीडिया · टीम हायरिंग · ऐड्स', tag_demo: 'खुद ट्राई करें', demo_title: 'Service Mate <em>एक्शन में</em> देखें', demo_sub: 'तीन लाइव एनवायरनमेंट। OTP <strong style="color:var(--white);">456789</strong> से लॉगिन करें।', d1_label: 'ग्राहक साइड', d1_title: 'यूजर ऐप', d1_desc: 'सर्विस ब्राउज़ करें, बुक करें, ट्रैक करें — पूरा कस्टमर अनुभव।', d2_label: 'सर्विस प्रोवाइडर साइड', d2_title: 'प्रोवाइडर ऐप', d2_desc: 'बुकिंग मैनेज करें, जॉब एक्सेप्ट करें, कमाई ट्रैक करें।', d3_label: 'प्लेटफॉर्म ओनर', d3_title: 'एडमिन पैनल', d3_desc: 'यूजर, बुकिंग, पेआउट & एनालिटिक्स — एक डैशबोर्ड।', tag_how: 'प्रोसेस', how_title: 'एनक्वायरी से <em>लाइव प्लेटफॉर्म</em> तक', s1h: 'आपकी एनक्वायरी', s1p: 'WhatsApp या कॉल करें। बिज़नेस आइडिया और टार्गेट मार्केट बताएं।', s2h: 'ऑनबोर्डिंग & कन्फर्मेशन', s2p: 'NDA & कॉन्ट्रैक्ट साइन। ब्रांडिंग असेट्स शेयर करें। 50% एडवांस।', s3h: 'टीम क्रिएशन', s3p: 'डेडिकेटेड टीम असाइन होती है और काम शुरू होता है।', s4h: 'प्रोजेक्ट डिलीवरी', s4p: '3 दिन (साइट) या 1 हफ्ते (फुल ऐप) में डिलीवरी। 2 रिविजन शामिल।', tag_terms: 'जरूरी बातें', terms_title: 'सरल <em>नियम</em>', t1h: 'आपका पेमेंट गेटवे', t1p: 'हम इंटीग्रेट करते हैं — मालिक आप।', t2h: 'ब्रांडिंग असेट्स दें', t2p: 'लोगो, ब्रांड कलर और कॉपी आपको देनी होगी।', t3h: '50% एडवांस', t3p: 'काम शुरू होने से पहले। बाकी 50% डिलीवरी पर।', t4h: '2 रिविजन शामिल', t4p: 'दो राउंड के बदलाव प्राइस में शामिल हैं।', t5h: 'NDA & कॉन्ट्रैक्ट', t5p: 'आपका आइडिया सुरक्षित है।', cta_h: 'अपना <em style="color:var(--yellow);">खुद का प्लेटफॉर्म</em><br>बनाने के लिए तैयार हैं?', cta_p: '350+ बिज़नेस ने Neighshop Global पर भरोसा किया। आइए बात करें।', cta_web: 'वेबसाइट विजिट करें', stat1: 'प्रोजेक्ट डिलीवर', stat2: 'देश', stat3: 'साल का अनुभव', stat4: 'डिलीवरी टाइम' },
+      ta: { name: 'தமிழ்', nav_cta: 'தொடர்பு கொள்ளுங்கள்', badge: 'சேவை வணிகங்களுக்காக', hero_h1: 'உங்கள் சொந்த<br><em>Urban Company</em>-ஐ<br>1 வாரத்தில் தொடங்குங்கள்.', hero_sub: 'முழு ஆன்-டிமாண்ட் சேவை தளம் — ஆப், வெப்சைட், அட்மின் பேனல் — உங்கள் பிராண்டில்.', cta_demo: 'லைவ் டெமோ பார்க்கவும்', cta_price: 'விலை பார்க்கவும்', img1: 'வீட்டு சுத்தம்', img2: 'மின்சாரவாதி', img3: 'குழாய் பணி', img4: 'அழகு சேவை', tag_built: 'நாங்கள் உருவாக்கிய தளங்கள்', built_title: 'உண்மையான <em>லைவ்</em> தளங்கள்', built_sub: 'எங்கள் வாடிக்கையாளர்களுக்காக வரிசைப்படுத்தப்பட்ட உண்மையான தளங்கள்.', fi1_h: 'ஆன்-டிமாண்ட். வீட்டிலேயே.', fi1_p: 'வாடிக்கையாளர்கள் நொடியில் பதிவு செய்கிறார்கள்.', fi2_h: 'சக்திவாய்ந்த நிர்வாகம்', fi2_p: 'முன்பதிவு, ஊதியம், பணியாளர்கள் — ஒரே இடத்தில்.', bc1: 'ஆன்-டிமாண்ட் வீட்டு சுத்தம் சேவை தளம்.', bc2: 'பல சேவை ஒருங்கிணைப்பு தளம்.', bc3: 'நேரடி பதிவுடன் சேவை சந்தை.', bc4: 'வீட்டு சேவைகள் — வாடிக்கையாளர்களை நிபுணர்களுடன் இணைக்கிறது.', tag_sol: 'உங்கள் திட்டத்தை தேர்ந்தெடுங்கள்', sol_title: 'ஒரு பிராண்ட், <em>இரண்டு தீர்வுகள்</em>', site_for: 'தனிப்பட்ட சேவை வழங்குநர்களுக்காக', app_for: 'தளங்கள் & ஒருங்கிணைப்பு மாதிரிகளுக்காக', sf1: 'உங்கள் சொந்த வலைத்தளம்', sf2: 'பணம் செலுத்தும் நுழைவாயில்', sf3: 'மின்னஞ்சல் அறிவிப்புகள்', sf4: 'தனிப்பயனாக்கத்தக்க தளம்', sf5: 'பதிவு மற்றும் வலைப்பதிவு', site_del: '3 நாட்களில் டெலிவரி', af1: 'வலைத்தளம் + Android & iOS', af2: 'பணம் செலுத்தும் நுழைவாயில்', af3: 'அறிவிப்புகள்', af4: 'நிர்வாக பேனல்', af5: 'சேவை வழங்குநர் + பயனர் ஆப்', af6: 'அடிப்படை SEO', app_del: '1 வாரத்தில் டெலிவரி', addons: '💡 கூடுதல்: விற்பனை & ஆதரவு · சமூக ஊடக · குழு நியமனம்', tag_demo: 'நீங்களே முயற்சி செய்யுங்கள்', demo_title: 'Service Mate-ஐ <em>நேரில் பாருங்கள்</em>', demo_sub: 'மூன்று நேரடி சூழல்கள். OTP <strong style="color:var(--white);">456789</strong> மூலம் உள்நுழைக.', d1_label: 'வாடிக்கையாளர் பக்கம்', d1_title: 'பயனர் ஆப்', d1_desc: 'சேவைகள் பார்க்கவும், பதிவு செய்யவும், கண்காணிக்கவும்.', d2_label: 'சேவை வழங்குநர்', d2_title: 'வழங்குநர் ஆப்', d2_desc: 'பதிவுகள் நிர்வகிக்கவும், வேலைகள் ஏற்கவும்.', d3_label: 'தள உரிமையாளர்', d3_title: 'நிர்வாக பேனல்', d3_desc: 'யாவரையும், பதிவுகளையும், பகுப்பாய்வையும் ஒரே இடத்தில் நிர்வகிக்கவும்.', tag_how: 'செயல்முறை', how_title: 'விசாரணையிலிருந்து <em>நேரடி தளம்</em> வரை', s1h: 'உங்கள் விசாரணை', s1p: 'WhatsApp அல்லது அழைப்பு மூலம் தொடர்பு கொள்ளுங்கள்.', s2h: 'ஆன்போர்டிங் & உறுதி', s2p: 'NDA & ஒப்பந்தம். 50% முன்பணம்.', s3h: 'குழு உருவாக்கம்', s3p: 'அர்ப்பணிக்கப்பட்ட குழு நியமிக்கப்படும்.', s4h: 'திட்ட டெலிவரி', s4p: '3 நாட்கள் அல்லது 1 வாரத்தில் டெலிவரி.', tag_terms: 'தெரிந்துகொள்ளுங்கள்', terms_title: 'எளிய <em>விதிகள்</em>', t1h: 'உங்கள் பேமெண்ட் கேட்வே', t1p: 'நாங்கள் ஒருங்கிணைக்கிறோம் — நீங்கள் மாலிக்.', t2h: 'பிராண்டிங் சொத்துக்கள்', t2p: 'லோகோ, நிறங்கள் மற்றும் உள்ளடக்கம்.', t3h: '50% முன்பணம்', t3p: 'வேலை தொடங்குவதற்கு முன்பு.', t4h: '2 திருத்தங்கள்', t4p: 'இரண்டு திருத்தங்கள் விலையில் உள்ளடங்கியது.', t5h: 'NDA & ஒப்பந்தம்', t5p: 'உங்கள் யோசனை பாதுகாக்கப்படும்.', cta_h: 'உங்கள் <em style="color:var(--yellow);">சொந்த தளத்தை</em><br>கட்டமைக்க தயாரா?', cta_p: '350+ வணிகங்கள் Neighshop Global-ஐ நம்பினார்கள்.', cta_web: 'வலைத்தளம் பார்வையிடுக', stat1: 'திட்டங்கள்', stat2: 'நாடுகள்', stat3: 'ஆண்டுகள்', stat4: 'டெலிவரி நேரம்' },
+      kn: { name: 'ಕನ್ನಡ', nav_cta: 'ಮಾತನಾಡಿ', badge: 'ಸೇವಾ ವ್ಯವಹಾರಗಳಿಗಾಗಿ', hero_h1: 'ನಿಮ್ಮ ಸ್ವಂತ<br><em>Urban Company</em>-ಅನ್ನು<br>1 ವಾರದಲ್ಲಿ ಲಾಂಚ್ ಮಾಡಿ.', hero_sub: 'ಸಂಪೂರ್ಣ ಆನ್-ಡಿಮಾಂಡ್ ಸೇವಾ ವೇದಿಕೆ — ಆ್ಯಪ್, ವೆಬ್‌ಸೈಟ್, ಅಡ್ಮಿನ್ ಪ್ಯಾನಲ್ — ನಿಮ್ಮ ಬ್ರ್ಯಾಂಡ್‌ನಲ್ಲಿ.', cta_demo: 'ಲೈವ್ ಡೆಮೋ ನೋಡಿ', cta_price: 'ಬೆಲೆ ನೋಡಿ', img1: 'ಮನೆ ಸ್ವಚ್ಛತೆ', img2: 'ಎಲೆಕ್ಟ್ರಿಶಿಯನ್', img3: 'ಪ್ಲಂಬಿಂಗ್', img4: 'ಸೌಂದರ್ಯ & ಆರೋಗ್ಯ', tag_built: 'ನಾವು ನಿರ್ಮಿಸಿದ ಉತ್ಪನ್ನಗಳು', built_title: '<em>ಲೈವ್</em> ಆಗಿರುವ ವೇದಿಕೆಗಳು', built_sub: 'ನಮ್ಮ ಕ್ಲೈಂಟ್‌ಗಳಿಗಾಗಿ ನಿಯೋಜಿಸಿದ ನಿಜವಾದ ವೇದಿಕೆಗಳು.', fi1_h: 'ಆನ್-ಡಿಮಾಂಡ್. ಮನೆಯಲ್ಲಿ.', fi1_p: 'ಗ್ರಾಹಕರು ಸೆಕೆಂಡುಗಳಲ್ಲಿ ಬುಕ್ ಮಾಡುತ್ತಾರೆ.', fi2_h: 'ಶಕ್ತಿಶಾಲಿ ಅಡ್ಮಿನ್ ನಿಯಂತ್ರಣ', fi2_p: 'ಬುಕಿಂಗ್, ಪಾವತಿ, ಸಿಬ್ಬಂದಿ — ಒಂದೇ ಪ್ಯಾನಲ್.', bc1: 'ಆನ್-ಡಿಮಾಂಡ್ ಮನೆ ಸ್ವಚ್ಛತೆ ಸೇವಾ ವೇದಿಕೆ.', bc2: 'ಮಲ್ಟಿ-ಸರ್ವಿಸ್ ಅಗ್ರಿಗೇಟರ್ ವೇದಿಕೆ.', bc3: 'ರಿಯಲ್-ಟೈಮ್ ಬುಕಿಂಗ್‌ನೊಂದಿಗೆ ಸೇವಾ ಮಾರ್ಕೆಟ್.', bc4: 'ಗ್ರಾಹಕರನ್ನು ವೃತ್ತಿಪರರೊಂದಿಗೆ ಸಂಪರ್ಕಿಸುವ ವೇದಿಕೆ.', tag_sol: 'ನಿಮ್ಮ ಯೋಜನೆ ಆಯ್ಕೆ ಮಾಡಿ', sol_title: 'ಒಂದು ಬ್ರ್ಯಾಂಡ್, <em>ಎರಡು ಪರಿಹಾರಗಳು</em>', site_for: 'ವ್ಯಕ್ತಿಗತ ಸೇವಾ ಪೂರೈಕೆದಾರರಿಗಾಗಿ', app_for: 'ವೇದಿಕೆಗಳು & ಅಗ್ರಿಗೇಟರ್ ಮಾದರಿಗಳಿಗಾಗಿ', sf1: 'ನಿಮ್ಮ ಸ್ವಂತ ವೃತ್ತಿಪರ ವೆಬ್‌ಸೈಟ್', sf2: 'ಪೇಮೆಂಟ್ ಗೇಟ್‌ವೇ ಸಂಯೋಜನೆ', sf3: 'ಇಮೇಲ್ / Gmail ಅಧಿಸೂಚನೆಗಳು', sf4: 'ಕಸ್ಟಮೈಸ್ ಮಾಡಬಹುದಾದ ಸೈಟ್', sf5: 'ಬುಕಿಂಗ್ ಮತ್ತು ಬ್ಲಾಗ್ ನಿರ್ವಹಣೆ', site_del: '3 ದಿನಗಳಲ್ಲಿ ಡೆಲಿವರಿ', af1: 'ವೆಬ್‌ಸೈಟ್ + Android & iOS ಆ್ಯಪ್‌ಗಳು', af2: 'ಪೇಮೆಂಟ್ ಗೇಟ್‌ವೇ', af3: 'Gmail / ಪುಶ್ ಅಧಿಸೂಚನೆಗಳು', af4: 'ಅಡ್ಮಿನ್ ಪ್ಯಾನಲ್ ಸೇರಿದೆ', af5: 'ಸೇವಾ ಪೂರೈಕೆದಾರ ಆ್ಯಪ್ + ಬಳಕೆದಾರ ಆ್ಯಪ್', af6: 'ಮೂಲ SEO ಸೆಟಪ್', app_del: '1 ವಾರದಲ್ಲಿ ಡೆಲಿವರಿ', addons: '💡 ಆಡ್-ಆನ್‌ಗಳು: ಮಾರಾಟ & ಬೆಂಬಲ · ಸಾಮಾಜಿಕ ಮಾಧ್ಯಮ · ತಂಡ ನೇಮಕಾತಿ', tag_demo: 'ನೀವೇ ಪ್ರಯತ್ನಿಸಿ', demo_title: 'Service Mate ಅನ್ನು <em>ನೇರವಾಗಿ ನೋಡಿ</em>', demo_sub: 'ಮೂರು ಲೈವ್ ಪರಿಸರಗಳು. OTP <strong style="color:var(--white);">456789</strong> ಬಳಸಿ ಲಾಗಿನ್ ಮಾಡಿ.', d1_label: 'ಗ್ರಾಹಕ ಭಾಗ', d1_title: 'ಬಳಕೆದಾರ ಆ್ಯಪ್', d1_desc: 'ಸೇವೆಗಳನ್ನು ಬ್ರೌಸ್ ಮಾಡಿ, ಬುಕ್ ಮಾಡಿ, ಟ್ರ್ಯಾಕ್ ಮಾಡಿ.', d2_label: 'ಸೇವಾ ಪೂರೈಕೆದಾರ ಭಾಗ', d2_title: 'ಪ್ರೊವೈಡರ್ ಆ್ಯಪ್', d2_desc: 'ಬುಕಿಂಗ್ ನಿರ್ವಹಿಸಿ, ಕೆಲಸ ಸ್ವೀಕರಿಸಿ, ಗಳಿಕೆ ಟ್ರ್ಯಾಕ್ ಮಾಡಿ.', d3_label: 'ವೇದಿಕೆ ಮಾಲೀಕ', d3_title: 'ಅಡ್ಮಿನ್ ಪ್ಯಾನಲ್', d3_desc: 'ಬಳಕೆದಾರರು, ಬುಕಿಂಗ್, ಪಾವತಿ & ವಿಶ್ಲೇಷಣೆ — ಒಂದು ಡ್ಯಾಶ್‌ಬೋರ್ಡ್.', tag_how: 'ಪ್ರಕ್ರಿಯೆ', how_title: 'ವಿಚಾರಣೆಯಿಂದ <em>ಲೈವ್ ವೇದಿಕೆ</em>ಯವರೆಗೆ', s1h: 'ನಿಮ್ಮ ವಿಚಾರಣೆ', s1p: 'WhatsApp ಅಥವಾ ಕರೆ ಮೂಲಕ ಸಂಪರ್ಕಿಸಿ.', s2h: 'ಆನ್‌ಬೋರ್ಡಿಂಗ್ & ದೃಢೀಕರಣ', s2p: 'NDA & ಒಪ್ಪಂದ ಸಹಿ. 50% ಮುಂಗಡ.', s3h: 'ತಂಡ ರಚನೆ', s3p: 'ಸಮರ್ಪಿತ ತಂಡ ನಿಯೋಜಿಸಲಾಗುತ್ತದೆ.', s4h: 'ಯೋಜನೆ ಡೆಲಿವರಿ', s4p: '3 ದಿನ (ಸೈಟ್) ಅಥವಾ 1 ವಾರ (ಫುಲ್ ಆ್ಯಪ್). 2 ತಿದ್ದುಪಡಿಗಳು ಸೇರಿದೆ.', tag_terms: 'ತಿಳಿದುಕೊಳ್ಳಿ', terms_title: 'ಸರಳ <em>ನಿಯಮಗಳು</em>', t1h: 'ನಿಮ್ಮ ಪೇಮೆಂಟ್ ಗೇಟ್‌ವೇ', t1p: 'ನಾವು ಸಂಯೋಜಿಸುತ್ತೇವೆ — ನೀವು ಮಾಲೀಕ.', t2h: 'ಬ್ರ್ಯಾಂಡಿಂಗ್ ಆಸ್ತಿಗಳನ್ನು ಒದಗಿಸಿ', t2p: 'ಲೋಗೋ, ಬ್ರ್ಯಾಂಡ್ ಬಣ್ಣಗಳು ಮತ್ತು ವಿಷಯ.', t3h: '50% ಮುಂಗಡ', t3p: 'ಕೆಲಸ ಪ್ರಾರಂಭಿಸುವ ಮೊದಲು.', t4h: '2 ತಿದ್ದುಪಡಿಗಳು ಸೇರಿದೆ', t4p: 'ಎರಡು ಬದಲಾವಣೆ ಸುತ್ತುಗಳು ಸೇರಿದೆ.', t5h: 'NDA & ಒಪ್ಪಂದ', t5p: 'ನಿಮ್ಮ ಆಲೋಚನೆ ರಕ್ಷಿಸಲ್ಪಡುತ್ತದೆ.', cta_h: 'ನಿಮ್ಮ <em style="color:var(--yellow);">ಸ್ವಂತ ವೇದಿಕೆ</em><br>ನಿರ್ಮಿಸಲು ಸಿದ್ಧರಿದ್ದೀರಾ?', cta_p: '350+ ವ್ಯವಹಾರಗಳು Neighshop Global ಅನ್ನು ನಂಬಿದವು.', cta_web: 'ವೆಬ್‌ಸೈಟ್ ಭೇಟಿ ಮಾಡಿ', stat1: 'ಯೋಜನೆಗಳು', stat2: 'ದೇಶಗಳು', stat3: 'ವರ್ಷಗಳ ಅನುಭವ', stat4: 'ಡೆಲಿವರಿ ಸಮಯ' },
+      ur: { name: 'اردو', nav_cta: 'بات کریں', badge: 'سروس کاروبار کے لیے', hero_h1: 'اپنی <em>Urban Company</em><br>1 ہفتے میں لانچ کریں۔', hero_sub: 'مکمل آن-ڈیمانڈ سروس پلیٹ فارم — ایپ، ویب سائٹ، ایڈمن پینل — آپ کے برانڈ کے نام پر۔', cta_demo: 'لائیو ڈیمو دیکھیں', cta_price: 'قیمت دیکھیں', img1: 'گھر کی صفائی', img2: 'الیکٹریشن', img3: 'پلمبنگ', img4: 'بیوٹی & ویلنیس', tag_built: 'ہمارے بنائے پلیٹ فارم', built_title: 'اصلی <em>لائیو</em> پلیٹ فارم', built_sub: 'ہمارے کلائنٹس کے لیے تعینات کیے گئے اصلی پلیٹ فارم۔', fi1_h: 'آن-ڈیمانڈ۔ گھر پر۔', fi1_p: 'گاہک سیکنڈوں میں بک کرتے ہیں، پیشہ ور وقت پر آتے ہیں۔', fi2_h: 'طاقتور ایڈمن کنٹرول', fi2_p: 'بکنگ، ادائیگی، عملہ — سب ایک جگہ سے۔', bc1: 'آن-ڈیمانڈ گھر کی صفائی سروس پلیٹ فارم۔', bc2: 'ملٹی-سروس ایگریگیٹر پلیٹ فارم۔', bc3: 'ریئل-ٹائم بکنگ کے ساتھ سروس مارکیٹ پلیس۔', bc4: 'گھریلو خدمات — گاہکوں کو ماہرین سے جوڑتا ہے۔', tag_sol: 'اپنا پلان چنیں', sol_title: 'ایک برانڈ، <em>دو حل</em>', site_for: 'انفرادی سروس فراہم کنندگان کے لیے', app_for: 'پلیٹ فارم اور ایگریگیٹر ماڈلز کے لیے', sf1: 'آپ کی اپنی پیشہ ور ویب سائٹ', sf2: 'پیمنٹ گیٹ وے انٹیگریشن', sf3: 'ای میل / Gmail اطلاعات', sf4: 'حسب ضرورت سائٹ اور تھیم', sf5: 'بکنگ اور بلاگ مینجمنٹ', site_del: '3 دنوں میں ڈیلیوری', af1: 'ویب سائٹ + Android & iOS ایپس', af2: 'پیمنٹ گیٹ وے', af3: 'Gmail / پش نوٹیفیکیشنز', af4: 'ایڈمن پینل شامل', af5: 'سروس پرووائیڈر ایپ + یوزر ایپ', af6: 'بنیادی SEO سیٹ اپ', app_del: '1 ہفتے میں ڈیلیوری', addons: '💡 ایڈ-آنز: سیلز & سپورٹ · سوشل میڈیا · ٹیم ہائرنگ', tag_demo: 'خود آزمائیں', demo_title: 'Service Mate کو <em>عملی طور پر دیکھیں</em>', demo_sub: 'تین لائیو ماحول۔ OTP <strong style="color:var(--white);">456789</strong> سے لاگ ان کریں۔', d1_label: 'گاہک کا حصہ', d1_title: 'یوزر ایپ', d1_desc: 'خدمات براؤز کریں، بک کریں، ٹریک کریں۔', d2_label: 'سروس فراہم کنندہ', d2_title: 'پرووائیڈر ایپ', d2_desc: 'بکنگ منیج کریں، کام قبول کریں، کمائی ٹریک کریں۔', d3_label: 'پلیٹ فارم مالک', d3_title: 'ایڈمن پینل', d3_desc: 'یوزرز، بکنگ، ادائیگی اور تجزیات — ایک ڈیش بورڈ۔', tag_how: 'عمل', how_title: 'انکوائری سے <em>لائیو پلیٹ فارم</em> تک', s1h: 'آپ کی انکوائری', s1p: 'WhatsApp یا کال کریں۔ کاروباری خیال بتائیں۔', s2h: 'آن بورڈنگ و تصدیق', s2p: 'NDA اور معاہدے پر دستخط۔ 50% پیشگی ادائیگی۔', s3h: 'ٹیم تشکیل', s3p: 'ایک سرشار ٹیم تفویض کی جاتی ہے۔', s4h: 'پروجیکٹ ڈیلیوری', s4p: '3 دن (سائٹ) یا 1 ہفتے (مکمل ایپ) میں ڈیلیوری۔', tag_terms: 'ضروری باتیں', terms_title: 'سادہ <em>شرائط</em>', t1h: 'آپ کا پیمنٹ گیٹ وے', t1p: 'ہم انٹیگریٹ کریں گے — آپ مالک رہیں گے۔', t2h: 'برانڈنگ اثاثے فراہم کریں', t2p: 'لوگو، برانڈ رنگ اور مواد آپ کو دینا ہوگا۔', t3h: '50% پیشگی', t3p: 'کام شروع ہونے سے پہلے۔ باقی 50% ڈیلیوری پر۔', t4h: '2 ترامیم شامل', t4p: 'دو دور کی تبدیلیاں قیمت میں شامل ہیں۔', t5h: 'NDA اور معاہدہ', t5p: 'آپ کا خیال محفوظ رہے گا۔', cta_h: 'اپنا <em style="color:var(--yellow);">خود کا پلیٹ فارم</em><br>بنانے کے لیے تیار ہیں؟', cta_p: '350+ کاروباروں نے Neighshop Global پر بھروسہ کیا۔', cta_web: 'ویب سائٹ وزٹ کریں', stat1: 'پروجیکٹ', stat2: 'ممالک', stat3: 'سال کا تجربہ', stat4: 'ڈیلیوری وقت' }
+    };
+
+    let currentLang = 'en';
+    function toggleLang() {
+      document.getElementById('langBtn').classList.toggle('open');
+      document.getElementById('langDropdown').classList.toggle('open');
+    }
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.lang-switcher')) {
+        document.getElementById('langBtn').classList.remove('open');
+        document.getElementById('langDropdown').classList.remove('open');
+      }
+    });
+    function setLang(code) {
+      currentLang = code;
+      const d = T[code];
+      document.getElementById('langLabel').textContent = d.name;
+      document.body.style.direction = code === 'ur' ? 'rtl' : 'ltr';
+      document.querySelectorAll('.lang-option').forEach(o => o.classList.remove('active'));
+      document.querySelector(`.lang-option[onclick="setLang('${code}')"]`).classList.add('active');
+      document.querySelectorAll('[data-t]').forEach(el => {
+        const k = el.getAttribute('data-t');
+        if (d[k] !== undefined) el.innerHTML = d[k];
+      });
+      document.getElementById('langBtn').classList.remove('open');
+      document.getElementById('langDropdown').classList.remove('open');
+    }
+
+    // Scroll reveal
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } }), { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(r => io.observe(r));
+
+    function startCountdown() {
+      const timerElement = document.getElementById('countdown-timer');
+      if(!timerElement) return;
+      function update() {
+        const now = new Date();
+        const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+        const diff = tomorrow - now;
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+        timerElement.textContent = `${h.toString().padStart(2, '0')}h ${m.toString().padStart(2, '0')}m ${s.toString().padStart(2, '0')}s`;
+      }
+      update();
+      setInterval(update, 1000);
+    }
+    document.addEventListener('DOMContentLoaded', startCountdown);
+  </script>
 </body>
-</html>
 
+</html>
